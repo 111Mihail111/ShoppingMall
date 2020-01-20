@@ -2,3 +2,7 @@ packages
 */.vs/
 */bin
 */obj
+db.lock
+storage.ide
+storage.ide-shm
+storage.ide-wal
