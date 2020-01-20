@@ -1,0 +1,475 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_CustomTemplate.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="mt-5 mb-5 ml-3" style="font-size: 24px; color: #7c7c7c; font-family: 'Arial Rounded MT'">Интернет-магазины "---" по категориям</h2>
+    </div>
+</div>
+
+@*@*Первая категория меню*@
+<div class="row">
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2; background-color: white">
+            <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
+
+                <div class="col-2">
+                    <img src="~/Image/Wheel.svg" width="50px" height="50px" class="ml-2" style="margin-top: 2px"/>
+                </div>
+
+                <div class="col-7">
+                    @Html.ActionLink("Авто/Мототовары", "AvtoMototovary", "Shops", null, new { @class="btn btn-block text-left mt-1", @style="font-size: 20px; font-weight: 600" })
+                </div>
+
+                <div class="col-3">
+                    <button id="Auto" type="button" class="btn float-right" onclick="CreateMenuAcordion(this)" style="margin-top: -4px">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        <div id="MenuAuto" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Автозапчасти
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Автоаксессуары
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Шины/Диски
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Автоэлектроника
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/Monitor.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Электроника</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="Electronics" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="MenuElectronics" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Бытовая техника
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Климатическая техника
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Компьютеры и оргтехника / ПО
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Аудио/фото/видео
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Телефоны и мобильные устройства
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/House.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Для дома и офиса</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="Home" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="MenuHome" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Хозяйственно-бытовые товары
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Канцелярские товары
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Книги
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Подарки и сувениры
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Посуда
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Текстиль и постельное белье
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Продукты питания, доставка еды
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Товары для творчества и рукоделия
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Зоотовары
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*@*Вторая категория меню*@
+<div class="row mt-3">
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2; background-color: white">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/Makeup.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Красота и здоровье</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="Beauty" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="MenuBeauty" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Косметика и парфюмерия
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Интернет-аптеки
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Товары для здоровья и БАДы
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Очки и контактные линзы
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/Clothes.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Одежда и обувь</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="Clothes" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="MenuClothes" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Обувь
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Мужская одежда
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Женская одежда
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Одежда больших размеров
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Аксессуары
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Ювелирные изделия и часы
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/Sport.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Спорт и туризм</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="Sport" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="MenuSport" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Спортивные товары
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Туристические товары
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*@*Третья категория меню*@
+<div class="row mt-3">
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2; background-color: white">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/Construction.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Строительство и ремонт</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="Construction" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="MenuConstruction" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Строительные материалы
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Строительный инструмент
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Светотехника
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Водоснабжение и отопление
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Системы безопасности
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/ForMother.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Для мам и их детей</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="ForChildren" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="MenuForChildren" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Детская одежда
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Товары для беременных и кормящих мам
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Товары для детей
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/Furniture.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Мебель</span>
+                    </button>
+                </div>
+
+                <div class="col-2">
+                    <button id="Furniture" type="button" class="btn float-left" onclick="CreateMenuAcordion(this)">
+                        <i class="fa fa-chevron-circle-down" aria-hidden="true" style="font-size: 23px; margin-top: 13px"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="MenuFurniture" class="row invisibly">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Корпусная мебель
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Мягкая мебель
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Кухни и кухонная мебель
+                        <span style="font-size: 18px; font-weight: 600">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*@*Четвертая категория меню*@
+<div class="row mt-3">
+    <div class="col-4">
+        <div style="border: 1px solid #e2e2e2; background-color: white">
+            <div class="row">
+
+                <div class="col-10">
+                    <button class="btn btn-block text-left">
+                        <img src="~/Image/Etc.svg" width="50px" height="50px" />
+                        <span class="ml-4" style="font-size: 20px; font-weight: 600">Прочее</span>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

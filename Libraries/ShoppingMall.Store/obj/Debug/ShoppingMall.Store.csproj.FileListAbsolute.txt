@@ -1,0 +1,11 @@
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\bin\Debug\ShoppingMall.Store.dll.config
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\bin\Debug\ShoppingMall.Store.dll
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\bin\Debug\ShoppingMall.Store.pdb
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\bin\Debug\EntityFramework.dll
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\bin\Debug\EntityFramework.SqlServer.dll
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\bin\Debug\EntityFramework.xml
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\bin\Debug\EntityFramework.SqlServer.xml
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\obj\Debug\ShoppingMall.Store.csproj.CopyComplete
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\obj\Debug\ShoppingMall.Store.dll
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\obj\Debug\ShoppingMall.Store.pdb
+C:\Project\ShoppingMall\Libraries\ShoppingMall.Store\obj\Debug\ShoppingMall.Store.csprojAssemblyReference.cache

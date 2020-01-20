@@ -1,0 +1,115 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    @Styles.Render("~/bundles/Styles")
+    @Scripts.Render("~/bundles/Scripts")
+
+    <title>@ViewBag.Title</title>
+</head>
+<body style="background-color: #fcfbfb">
+    <div class="container-fluid">
+        <div class="row" style="background-color: #fcfbfb; border-bottom: 1px solid #e2e2e2">
+            <div class="col-12 mt-3 mb-5">
+                <div class="row">
+
+                    <div class="col-4">
+                        <img class="" src="~/Image/Logo.svg" width="50px" height="50px" />
+                        <span class="ml-2" style="font-size: 24px; font-family: 'Arial Rounded MT'; font-weight: 300"><b>Shopping </b></span>
+                        <span class="ml-2" style="font-size: 24px; font-family: 'Arial Rounded MT'; color: red"><strong>Mall</strong></span>
+                        <button class="btn" style="background-color: #f74141; margin-left: 50px">
+                            <span style="color:white">Каталог магазинов</span>
+                        </button>
+                        <p style="font-size: 13px; color: #7c7c7c; margin-left: 64px; margin-top: -11px">Интернет-магазины Северодвинск</p>
+                    </div>
+
+                    <div class="col-5">
+                        <div class="input-group mb-3" style="margin-top: 5px;">
+                            @Html.TextBox("text", null, new { @class = "form-control", @aria_describedby = "inputGroup-sizing-default", @PlaceHolder = "Найти товар, магазин, акцию ..." })
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" id="inputGroup-sizing-default">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <button class="btn" style="margin-top: 4px">
+                            <i class="fa fa-map" aria-hidden="true" style="font-size: 20px"></i>
+                            <span class="ml-2">Северодвинск</span>
+                        </button>
+                    </div>
+
+                    <div class="col-1">
+                        <button class="btn" style="margin-top: 4px; position: absolute">
+                            <i class="fa fa-user-o" aria-hidden="true" style="font-size: 15px"></i>
+                            <span>Войти</span>
+                        </button>
+                    </div>
+
+                </div>
+                                
+            </div>
+        </div>
+
+        <div class="row" style="margin: -25px 15px 0 15px; min-height: 55px;">
+            <div class="col-4" style="padding: 0">
+                <button class="btn btn-lg btn-block backlight" style="border: 1px solid #e2e2e2; background-color: white;  border-radius: 0px;">
+                    <i class="fa fa-building" aria-hidden="true" style="font-size: 18px"></i>
+                    <span class="ml-2" style="font-size: 16px">ИНТЕРНЕТ-МАГАЗИНЫ</span>
+                </button>
+            </div>
+
+            <div class="col-4" style="padding: 0">
+                <button class="btn btn-lg btn-block backlight" style="border: 1px solid #e2e2e2; background-color: white; border-radius: 0px;">
+                    <i class="fa fa-shopping-basket" aria-hidden="true" style="font-size: 18px"></i>
+                    <span class="ml-2" style="font-size: 16px">ТОВАРЫ</span>
+                </button>
+            </div>
+
+            <div class="col-4" style="padding: 0">
+                <button class="btn btn-lg btn-block backlight" style="border: 1px solid #e2e2e2; background-color: white; border-radius: 0px;">
+                    <i class="fa fa-percent" aria-hidden="true" style="font-size: 18px"></i>
+                    <span class="ml-2" style="font-size: 16px">АКЦИИ</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                @RenderBody()
+            </div>
+        </div>
+
+        @*Подвал сайта*@
+        <div class="row mb-4" style="background-color: #fcfbfb; border-top: 1px solid #e2e2e2">
+            <div class="col-12">
+                <div class="row">
+
+                    <div class="col-3">
+                        <h4 class="mt-4 mb-3 ml-2" style="font-weight: bold">Интернет-магазинам</h4>
+                        @Html.ActionLink("Добавить интернет-магазин", "AddShops", "Shops" , null, new { @class = "ml-2", @style = "color: black; margin-top: 50px" })
+                    </div>
+
+                    <div class="col-3">
+                        <h4 class="mt-4 mb-3" style="font-weight: bold">Группам СП</h4>
+                        @Html.ActionLink("Добавить группу СП", "", null, new { @style = "color: black; margin-top: 50px" })
+                    </div>
+
+                    <div class="col-3">
+                        <h4 class="mt-4 mb-3" style="font-weight: bold">Контакты</h4>
+                        @Html.ActionLink("support@shopping-mall.su", "", null, new { @style = "color: black; margin-top: 50px" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
