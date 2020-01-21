@@ -19,5 +19,12 @@ namespace ShoppingMall.Store.Service
         {
             return _storeContext.TypeCategoryStores.Include(x => x.CategoryStores).ToList();
         }
+
+        public List<TypeCategoryStore> GetCategoryStoreByName(string categoryName)
+        {
+            return _storeContext.TypeCategoryStores
+                .Include(i => i.CategoryStores)
+                .Where(w => w.CategoryStores.Any(a => a.CategoryName.StartsWith(categoryName) || a.CategoryName == "")).ToList();
+        }
     }
 }

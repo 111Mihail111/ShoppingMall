@@ -6,5 +6,7 @@ namespace ShoppingMall.Store.Interface
     public interface ICategoryService
     {
         List<TypeCategoryStore> GetCategoryStore();
+
+        List<TypeCategoryStore> GetCategoryStoreByName(string categoryName);
     }
 }

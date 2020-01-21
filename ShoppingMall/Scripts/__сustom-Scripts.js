@@ -173,7 +173,7 @@ $(function () {
         var model = {
             CategoryName: input.value
         };
-
+debugger;
         $.ajax({
             type: "POST",
             data: JSON.stringify(model),
