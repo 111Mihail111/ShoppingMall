@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using ShoppingMall.Infrastructure;
 using ShoppingMall.Store.Interface;
@@ -26,19 +27,16 @@ namespace ShoppingMall.Controllers
         [HttpGet]
         public ActionResult AddShops()
         {
-            var config = _autoMapperConfigaration.Create<TypeCategoryStore, StoreCategoryByTypesVM>();
-            var storeCategoryByTypesVM = config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStore());
-
-            return PartialView(storeCategoryByTypesVM);
+            return PartialView();
         }
         
         [HttpPost]
-        public IEnumerable<StoreCategoryByTypesVM> GetCategoryShop()
+        public JsonResult GetCategoryShopByName(CategoryStore categoryStore)
         {
             var config = _autoMapperConfigaration.Create<TypeCategoryStore, StoreCategoryByTypesVM>();
-            var storeCategoryByTypesVM = config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStore());
+            var storeCategoryByTypesVM = config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStoreByName(categoryStore.CategoryName));
 
-            return storeCategoryByTypesVM;
+            return Json(storeCategoryByTypesVM, JsonRequestBehavior.AllowGet);
         }
     }
 }

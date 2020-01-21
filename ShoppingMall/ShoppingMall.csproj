@@ -158,6 +158,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\__сustom-Scripts.js" />
     <Content Include="Content\Style\TT Rounds Condensed Light.otf" />
     <Content Include="font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />

@@ -7,7 +7,8 @@ namespace ShoppingMall
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/Scripts").Include(
-                "~/Scripts/jquery-3.4.1.slim.min.js",
+                "~/Scripts/jquery-3.4.1.min.js",
+                "~/Scripts/jquery.unobtrusive-ajax.min.js",
                 "~/Scripts/umd/popper.min.js",
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/__сustom-Scripts.js"));

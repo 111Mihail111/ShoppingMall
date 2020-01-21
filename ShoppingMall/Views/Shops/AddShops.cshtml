@@ -1,5 +1,4 @@
 ﻿@using ShoppingMall.ViewModels
-@using ShoppingMall.Helpers
 
 @model IEnumerable<StoreCategoryByTypesVM>
 
@@ -84,32 +83,22 @@
         <div class="row mt-4">
             <div class="col-12">
 
-                <div id="Category" style="background-color: white; width: auto; height: auto; min-height: 40px; border: 1px solid #ced4da" tabindex="-1" onclick="DropDownListVisible(this)">
-                    
-                    <input id="Search" class="ml-2" style="height: 40px; border: none" onclick="DropDownListVisible(this)" />
+                <div id="Category" style="background-color: white; width: auto; height: auto; min-height: 40px; border: 1px solid #ced4da" tabindex="-1" onclick="FocusOnInput()">
+                    <input id="Search" class="ml-2" style="height: 40px; border: none" />
                 </div>
+
+                <div id="result"></div>
 
                 <div id="DropDownList" class="row invisibly">
                     <div class="col-12">
-
                         <div style="height: 200px; overflow: auto; overflow-x: hidden">
                             <div style="background-color: white; border: 1px solid #ced4da;">
+                                <ul>
+                                    <li id="DropDownListHeader" class="mt-3 ml-3" style="font-weight: bold"></li>
 
-                                @if (Model != null)
-                                {
-                                    <ul>
-                                        @foreach (var item in Model)
-                                        {
-                                            <li class="mt-3 ml-3" style="font-weight: bold">@item.TypeCategoryName</li>
+                                    <li id="DropDownListElement" class="ml-4 mt-2" onmousedown="AddTagByList(this)"></li>
+                                </ul>
 
-                                            foreach (var element in item.CategoryStores)
-                                            {
-                                                <li id="CategoryStore" class="ml-4 mt-2" onmousedown="AddTagByList(this)">@element.CategoryName</li>
-                                            }
-
-                                        }
-                                    </ul>
-                                }
                             </div>
                         </div>
 

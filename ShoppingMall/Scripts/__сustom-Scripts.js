@@ -145,28 +145,65 @@ function DeletePanel(button) {
 
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
 
+$(function () {
 
-function DropDownListVisible(element) {
-
-    //Наводим фокус на элемент
-    document.getElementById('Search').focus();
+    //Получение id input'a
+    let input = document.getElementById('Search')
 
     //Получение выпадающего списка
     let dropDownList = document.getElementById('DropDownList');
 
     //Самовызывающеесе событие, если фокус есть на элементе
-    element.onblur = function () {
+    input.onblur = function () {
 
         //Находим определенный стиль и заменяем на другой
         dropDownList.classList.replace('visible', 'invisibly');
     }
 
     //Самовызывающеесе событие, если фокуса нет на элементе
-    element.onfocus = function () {
+    input.onfocus = function () {
 
         //Находим определенный стиль и заменяем на другой
         dropDownList.classList.replace('invisibly', 'visible');
     }
+
+    //Отслеживаем ввод текста
+    input.oninput = function () {
+
+        var model = {
+            CategoryName: input.value
+        };
+
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(model),
+            url: "/Shops/GetCategoryShopByName/",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+
+                for (i = 0; i < res.length; i++) {
+
+                    $("#DropDownListHeader").html(res[i].TypeCategoryName);
+
+                    for (index = 0; index < res[0].CategoryStores.length; index++) {
+
+                        $("#DropDownListElement").html(res[i].CategoryStores[index].CategoryName);
+
+                    }
+                }
+                
+            }
+        });
+    }
+})
+
+
+function FocusOnInput() {
+
+    //Наводим фокус на элемент
+    document.getElementById('Search').focus();
+
 }
 
 function AddTagByList(liElement) {
