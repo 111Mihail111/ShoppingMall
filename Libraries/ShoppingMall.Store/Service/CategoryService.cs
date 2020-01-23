@@ -22,9 +22,23 @@ namespace ShoppingMall.Store.Service
 
         public List<TypeCategoryStore> GetCategoryStoreByName(string categoryName)
         {
-            return _storeContext.TypeCategoryStores
+            if (string.IsNullOrEmpty(categoryName))
+            {
+                return _storeContext.TypeCategoryStores
+                .Include(i => i.CategoryStores).ToList();
+            }
+
+            var typeEntities = _storeContext.TypeCategoryStores
                 .Include(i => i.CategoryStores)
-                .Where(w => w.CategoryStores.Any(a => a.CategoryName.StartsWith(categoryName) || a.CategoryName == "")).ToList();
+                .Where(w => w.CategoryStores.Any(a => a.CategoryName.StartsWith(categoryName)))
+                .ToList();
+
+            foreach (var item in typeEntities)
+            {
+                item.CategoryStores = item.CategoryStores.Where(a => a.CategoryName.StartsWith(categoryName)).ToList();
+            }
+
+            return typeEntities;
         }
     }
 }

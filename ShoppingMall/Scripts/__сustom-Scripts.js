@@ -1,4 +1,6 @@
-﻿/***РАСКРЫТИЕ/СОКРЫТИЕ ЭЛЕМЕНТОВ МЕНЮ***/
+﻿
+
+/***РАСКРЫТИЕ/СОКРЫТИЕ ЭЛЕМЕНТОВ МЕНЮ***/
 
 //Создание меню кнопок
 function CreateMenuAcordion(button) {
@@ -169,51 +171,72 @@ $(function () {
 
     //Отслеживаем ввод текста
     input.oninput = function () {
-
         var model = {
             CategoryName: input.value
         };
-debugger;
-        $.ajax({
-            type: "POST",
-            data: JSON.stringify(model),
-            url: "/Shops/GetCategoryShopByName/",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (res) {
 
-                for (i = 0; i < res.length; i++) {
-
-                    $("#DropDownListHeader").html(res[i].TypeCategoryName);
-
-                    for (index = 0; index < res[0].CategoryStores.length; index++) {
-
-                        $("#DropDownListElement").html(res[i].CategoryStores[index].CategoryName);
-
-                    }
-                }
-                
-            }
-        });
+        AjaxQuryGetDataCategory(model)
     }
 })
 
+function AjaxQuryGetDataCategory(model) {
+    $.ajax({
+        type: "POST",
+        data: JSON.stringify(model),
+        url: "/Shops/GetCategoryShopByName/",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            
+            let dropDownList = $("#DropDownListElements");
+            dropDownList.empty();
+
+            for (i = 0; i < res.length; i++) {
+
+                let li = document.createElement("li");
+                
+                li.style.fontWeight = "bold";
+                li.className = "mt-2 ml-2 mb-1"
+                li.innerHTML = res[i].TypeCategoryName;
+                
+                dropDownList.append(li);
+
+                for (index = 0; index < res[i].CategoryStores.length; index++) {
+                    
+                    let liTwo = document.createElement("li");
+
+                    liTwo.className = "ml-3 mt-1";
+                    liTwo.innerHTML = res[i].CategoryStores[index].CategoryName;
+                    dropDownList.append(liTwo);
+                    liTwo.addEventListener('mousedown', function () { AddTagByList(this) }, false);                    
+                }
+
+            }
+        }
+    });
+}
 
 function FocusOnInput() {
 
     //Наводим фокус на элемент
     document.getElementById('Search').focus();
 
+    let input = document.getElementById('Search');
+    var model = {
+        CategoryName: input.value
+    };
+
+    AjaxQuryGetDataCategory(model);
 }
 
 function AddTagByList(liElement) {
-
+    console.log("текст");
     let divContainer = document.getElementById("Category");
 
     divContainer.insertAdjacentElement('afterbegin', CreateElement(liElement));
 }
 
-function CreateElement(liElement) {
+function CreateElement(liElement, Element) {
 
     let i = document.createElement("i");
     i.classList = 'fa fa-close';
