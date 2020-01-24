@@ -147,8 +147,9 @@ function DeletePanel(button) {
 
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
 
+//Инициализация DropDownList'а
 $(function () {
-
+    
     //Получение id input'a
     let input = document.getElementById('Search')
 
@@ -179,6 +180,7 @@ $(function () {
     }
 })
 
+//Ajax запрос получения данных из БД для DropDownList'а
 function AjaxQuryGetDataCategory(model) {
     $.ajax({
         type: "POST",
@@ -216,6 +218,7 @@ function AjaxQuryGetDataCategory(model) {
     });
 }
 
+//Наведение фокуса на input при нажатии на область div'а
 function FocusOnInput() {
 
     //Наводим фокус на элемент
@@ -229,29 +232,45 @@ function FocusOnInput() {
     AjaxQuryGetDataCategory(model);
 }
 
+//Добавление тэга в лист Категорий
 function AddTagByList(liElement) {
-    console.log("текст");
+    
     let divContainer = document.getElementById("Category");
-
-    divContainer.insertAdjacentElement('afterbegin', CreateElement(liElement));
+    document.getElementById('Search').value = "";
+    
+    divContainer.insertAdjacentElement('afterbegin', CreateButton(liElement) );
 }
 
-function CreateElement(liElement, Element) {
+//Создание кнопки
+function CreateButton(liElement) {
 
     let i = document.createElement("i");
-    i.classList = 'fa fa-close';
+    i.classList = 'fa fa-close mr-1';
+    i.addEventListener('mousedown', function () { RemoveButtonElement(this) }, false)
 
+    let span = document.createElement('span');
+    span.textContent = liElement.innerText;
+    
     let button = document.createElement("button");
     button.classList = "btn";
     button.style.padding = '5px 9px 5px 9px';
     button.style.margin = '6px 0px 6px 6px';
     button.style.border = '1px solid #aaaaaa';
     button.style.color = '#333';
-    button.textContent = liElement.innerText;
     button.disabled = true;
-    button.append(i);
 
+    button.append(i);
+    button.append(span);
+    
     return button;
+}
+
+//Удаление кнопки выбранного ранее элемента 
+function RemoveButtonElement(iElement) {
+
+    let button = iElement.parentElement;
+
+    button.remove();
 }
 
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
