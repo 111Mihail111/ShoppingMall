@@ -1,8 +1,10 @@
 ﻿using ShoppingMall.Store.Interface;
 using ShoppingMall.Store.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ShoppingMall.Store.Service
 {
@@ -20,25 +22,22 @@ namespace ShoppingMall.Store.Service
             return _storeContext.TypeCategoryStores.Include(x => x.CategoryStores).ToList();
         }
 
-        public List<TypeCategoryStore> GetCategoryStoreByName(string categoryName)
+        public List<TypeCategoryStore> GetCategoryStoreByName(string categoryName, IEnumerable<int> categoryStoreId)
         {
-            if (string.IsNullOrEmpty(categoryName))
-            {
-                return _storeContext.TypeCategoryStores
-                .Include(i => i.CategoryStores).ToList();
-            }
+            Expression<Func<CategoryStore, bool>> predicate = (item) => (item.CategoryName.StartsWith(categoryName) || string.IsNullOrEmpty(categoryName)) && !categoryStoreId.Contains(item.CategoryStoreId);
 
             var typeEntities = _storeContext.TypeCategoryStores
-                .Include(i => i.CategoryStores)
-                .Where(w => w.CategoryStores.Any(a => a.CategoryName.StartsWith(categoryName)))
-                .ToList();
+                    .Include(i => i.CategoryStores)
+                    .Where(w => w.CategoryStores.AsQueryable().Any(predicate))
+                    .ToList();
 
             foreach (var item in typeEntities)
             {
-                item.CategoryStores = item.CategoryStores.Where(a => a.CategoryName.StartsWith(categoryName)).ToList();
+                item.CategoryStores = item.CategoryStores.AsQueryable().Where(predicate).ToList();
             }
 
             return typeEntities;
         }
+
     }
 }

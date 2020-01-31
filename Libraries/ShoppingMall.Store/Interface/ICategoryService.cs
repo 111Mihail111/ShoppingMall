@@ -7,6 +7,6 @@ namespace ShoppingMall.Store.Interface
     {
         List<TypeCategoryStore> GetCategoryStore();
 
-        List<TypeCategoryStore> GetCategoryStoreByName(string categoryName);
+        List<TypeCategoryStore> GetCategoryStoreByName(string categoryName, IEnumerable<int> categoryStoreId);
     }
 }

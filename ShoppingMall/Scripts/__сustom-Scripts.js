@@ -1,6 +1,4 @@
-﻿
-
-/***РАСКРЫТИЕ/СОКРЫТИЕ ЭЛЕМЕНТОВ МЕНЮ***/
+﻿/***РАСКРЫТИЕ/СОКРЫТИЕ ЭЛЕМЕНТОВ МЕНЮ***/
 
 //Создание меню кнопок
 function CreateMenuAcordion(button) {
@@ -30,6 +28,7 @@ function CreateMenuAcordion(button) {
 }
 
 /***РАСКРЫТИЕ/СОКРЫТИЕ ЭЛЕМЕНТОВ МЕНЮ***/
+
 
 
 /***КЛОНИРОВАНИЕ КОНТРОЛОВ***/
@@ -100,6 +99,7 @@ function ChangedButton(button) {
 /***КЛОНИРОВАНИЕ КОНТРОЛОВ***/
 
 
+
 /***КЛОНИРОВАНИЕ ПАНЕЛИ КОНТРОЛОВ***/
 
 //Глобальная переменная с клонированным объектом
@@ -145,7 +145,14 @@ function DeletePanel(button) {
 /***КЛОНИРОВАНИЕ ПАНЕЛИ КОНТРОЛОВ***/
 
 
+
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
+
+//Глобальная модель для ajax запроса
+var _model = {
+    CategoryName: null,
+    CategoryStoreId: []
+};
 
 //Инициализация DropDownList'а
 $(function () {
@@ -172,11 +179,8 @@ $(function () {
 
     //Отслеживаем ввод текста
     input.oninput = function () {
-        var model = {
-            CategoryName: input.value
-        };
-
-        AjaxQuryGetDataCategory(model)
+        _model.CategoryName = input.value;
+        AjaxQuryGetDataCategory(_model);
     }
 })
 
@@ -188,29 +192,33 @@ function AjaxQuryGetDataCategory(model) {
         url: "/Shops/GetCategoryShopByName/",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (res) {
+        success: function (result) {
             
             let dropDownList = $("#DropDownListElements");
             dropDownList.empty();
 
-            for (i = 0; i < res.length; i++) {
+            for (i = 0; i < result.length; i++) {
 
-                let li = document.createElement("li");
-                
-                li.style.fontWeight = "bold";
-                li.className = "mt-2 ml-2 mb-1"
-                li.innerHTML = res[i].TypeCategoryName;
-                
-                dropDownList.append(li);
+                if (result[i].CategoryStores.length === 0) {
+                    continue;
+                }
 
-                for (index = 0; index < res[i].CategoryStores.length; index++) {
+                let liHeader = document.createElement("li");
+                liHeader.style.fontWeight = "bold";
+                liHeader.className = "mt-2 ml-2 mb-1"
+                liHeader.innerHTML = result[i].TypeCategoryName;
+
+                dropDownList.append(liHeader);
+
+                for (index = 0; index < result[i].CategoryStores.length; index++) {
                     
-                    let liTwo = document.createElement("li");
+                    let liElement = document.createElement("li");
+                    liElement.className = "ml-3 mt-1";
+                    liElement.innerHTML = result[i].CategoryStores[index].CategoryName;
+                    liElement.value = result[i].CategoryStores[index].CategoryStoreId;
+                    liElement.addEventListener('mousedown', function () { AddTagByList(this) }, false);
 
-                    liTwo.className = "ml-3 mt-1";
-                    liTwo.innerHTML = res[i].CategoryStores[index].CategoryName;
-                    dropDownList.append(liTwo);
-                    liTwo.addEventListener('mousedown', function () { AddTagByList(this) }, false);                    
+                    dropDownList.append(liElement);
                 }
 
             }
@@ -225,11 +233,9 @@ function FocusOnInput() {
     document.getElementById('Search').focus();
 
     let input = document.getElementById('Search');
-    var model = {
-        CategoryName: input.value
-    };
-
-    AjaxQuryGetDataCategory(model);
+    _model.CategoryName = input.value;
+    
+    AjaxQuryGetDataCategory(_model);
 }
 
 //Добавление тэга в лист Категорий
@@ -237,8 +243,11 @@ function AddTagByList(liElement) {
     
     let divContainer = document.getElementById("Category");
     document.getElementById('Search').value = "";
+
+    let button = CreateButton(liElement);
+    divContainer.insertAdjacentElement('afterbegin', button);
     
-    divContainer.insertAdjacentElement('afterbegin', CreateButton(liElement) );
+    _model.CategoryStoreId.push(button.value)
 }
 
 //Создание кнопки
@@ -257,6 +266,7 @@ function CreateButton(liElement) {
     button.style.margin = '6px 0px 6px 6px';
     button.style.border = '1px solid #aaaaaa';
     button.style.color = '#333';
+    button.value = liElement.value;
     button.disabled = true;
 
     button.append(i);
@@ -269,6 +279,9 @@ function CreateButton(liElement) {
 function RemoveButtonElement(iElement) {
 
     let button = iElement.parentElement;
+    
+    let index = _model.CategoryStoreId.indexOf(button.value);
+    _model.CategoryStoreId.splice(index, 1);
 
     button.remove();
 }

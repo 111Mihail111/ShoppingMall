@@ -30,12 +30,13 @@ namespace ShoppingMall.Controllers
         {
             return PartialView();
         }
-        
+
         [HttpPost]
-        public JsonResult GetCategoryShopByName(CategoryStore categoryStore)
+        public JsonResult GetCategoryShopByName(string categoryName, List<int> categoryStoreId)
         {
+            
             var config = _autoMapperConfigaration.Create<TypeCategoryStore, StoreCategoryByTypesVM>();
-            var storeCategoryByTypesVM = config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStoreByName(categoryStore.CategoryName));
+            var storeCategoryByTypesVM = config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStoreByName(categoryName, categoryStoreId ?? new List<int>() { -1}));
 
             return Json(storeCategoryByTypesVM, JsonRequestBehavior.AllowGet);
         }
