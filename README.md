@@ -1,2 +1,2 @@
 # ShoppingMall
-My test project on MVC4 analogue https://severodvinsk.shopping-mall.su/
+My test project on MVC5 analogue https://severodvinsk.shopping-mall.su/
