@@ -58,9 +58,14 @@
             <div class="col-12">Логотип</div>
         </div>
 
-        <div class="row mt-4">
+        <div id="ImageInfo" class="invisible">
+            <div class="mt-2"></div>
+        </div>
+
+        <div class="row mt-2">
             <div class="col-12">
-                ---
+                <span style="display: inline-block; color: #0275d8; text-decoration: underline">Добавить изображение</span>
+                @Html.TextBox("imageFile", null, new { @id = "FileUploader", @type = "file", @style = "position: relative; display: block; opacity: 0; margin-top: -18px", @accept = "image/*", @onchange = "GetDataFiles(this)" })
             </div>
         </div>
 
@@ -70,9 +75,7 @@
 
         <div class="row">
             <div class="col-12">
-                <div>
-                    @Html.TextArea(" ", new { @style = "max-height: 200px; min-height: 25px;", @rows = "12", @class = "mt-2", @cols = "82" })
-                </div>
+                @Html.TextArea(" ", new { @style = "", @rows = "12", @class = "mt-2 form-control" })
             </div>
         </div>
 

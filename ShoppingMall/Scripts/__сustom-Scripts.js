@@ -3,24 +3,15 @@
 //Создание меню кнопок
 function CreateMenuAcordion(button) {
 
-    //Склеиваем id и находим по нему элемент
     var menuButton = document.getElementById("Menu" + button.id);
-
-    //Получаем дочерний элемент
     var element = button.childNodes[1];
-
-    //Получаем стиль под определенным индексом листа
     var divClass = menuButton.classList[1];
 
     if (divClass == "invisibly") {
-
-        //Подменяем стили
         element.className = 'fa fa-chevron-circle-up';
         menuButton.classList.replace('invisibly', 'visible');
     }
     else if (divClass == "visible") {
-
-        //Подменяем стили
         element.className = 'fa fa-chevron-circle-down';
         menuButton.classList.replace('visible', 'invisibly');
     }
@@ -36,56 +27,32 @@ function CreateMenuAcordion(button) {
 //Создание контрола
 function CreateControl(containerElement) {
 
-    //Поиск и получение элемента
     let elementContainer = containerElement.getElementsByClassName("row");
-
-    //Получаем общее количество всех элементов основного контейнера
     let countElementContainer = containerElement.childElementCount;
 
-    //Клонирование элемента
     let cloneElement = elementContainer[0].cloneNode(true);
-
-    //Увеличиваем id клонированного элемента
     cloneElement.id += countElementContainer;
-
-    //Находим контрол input в контейнере элементов
-    let inputControl = cloneElement.getElementsByTagName('input');
-
-    //Подменяем атрибут
     cloneElement.getElementsByTagName('button')[0].disabled = false;
-
-    //Подменяем текст
     cloneElement.getElementsByTagName('span')[0].innerText = '+';
 
-    //Меняем атрибут нумеруя его индекс
+    let inputControl = cloneElement.getElementsByTagName('input');
     inputControl[0].name = "UserControl2[" + countElementContainer + "]." + inputControl[0].id
     inputControl[0].value = "";
 
-    //Вставляем клонированный элемент
     containerElement.append(cloneElement);
 }
 
 //Смена кнопки
 function ChangedButton(button) {
 
-    //Получение символа кнопки
     let buttonText = button.childNodes[1].innerText;
-
-    //Получение дочернего элемента контейнера
     let container = button.parentNode.parentNode;
 
     if (buttonText === '+') {
 
-        //Изменение текста у кнопки
         button.childNodes[1].innerText = '-';
-
-        //Блокируем кнопку
         button.disabled = true;
-
-        //Передача контейнера в метод создания контролов
         CreateControl(container.parentNode);
-
-        //Разблокируем кнопку
         button.disabled = false;
     }
     else {
@@ -156,7 +123,7 @@ var _model = {
 
 //Инициализация DropDownList'а
 $(function () {
-    
+
     //Получение id input'a
     let input = document.getElementById('Search')
 
@@ -180,12 +147,12 @@ $(function () {
     //Отслеживаем ввод текста
     input.oninput = function () {
         _model.CategoryName = input.value;
-        AjaxQuryGetDataCategory(_model);
+        AjaxQueryGetDataCategory(_model);
     }
 })
 
 //Ajax запрос получения данных из БД для DropDownList'а
-function AjaxQuryGetDataCategory(model) {
+function AjaxQueryGetDataCategory(model) {
     $.ajax({
         type: "POST",
         data: JSON.stringify(model),
@@ -193,7 +160,7 @@ function AjaxQuryGetDataCategory(model) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
-            
+
             let dropDownList = $("#DropDownListElements");
             dropDownList.empty();
 
@@ -211,7 +178,7 @@ function AjaxQuryGetDataCategory(model) {
                 dropDownList.append(liHeader);
 
                 for (index = 0; index < result[i].CategoryStores.length; index++) {
-                    
+
                     let liElement = document.createElement("li");
                     liElement.className = "ml-3 mt-1";
                     liElement.innerHTML = result[i].CategoryStores[index].CategoryName;
@@ -234,19 +201,19 @@ function FocusOnInput() {
 
     let input = document.getElementById('Search');
     _model.CategoryName = input.value;
-    
-    AjaxQuryGetDataCategory(_model);
+
+    AjaxQueryGetDataCategory(_model);
 }
 
 //Добавление тэга в лист Категорий
 function AddTagByList(liElement) {
-    
+
     let divContainer = document.getElementById("Category");
     document.getElementById('Search').value = "";
 
     let button = CreateButton(liElement);
     divContainer.insertAdjacentElement('afterbegin', button);
-    
+
     _model.CategoryStoreId.push(button.value)
 }
 
@@ -259,7 +226,7 @@ function CreateButton(liElement) {
 
     let span = document.createElement('span');
     span.textContent = liElement.innerText;
-    
+
     let button = document.createElement("button");
     button.classList = "btn";
     button.style.padding = '5px 9px 5px 9px';
@@ -271,7 +238,7 @@ function CreateButton(liElement) {
 
     button.append(i);
     button.append(span);
-    
+
     return button;
 }
 
@@ -279,7 +246,7 @@ function CreateButton(liElement) {
 function RemoveButtonElement(iElement) {
 
     let button = iElement.parentElement;
-    
+
     let index = _model.CategoryStoreId.indexOf(button.value);
     _model.CategoryStoreId.splice(index, 1);
 
@@ -287,3 +254,78 @@ function RemoveButtonElement(iElement) {
 }
 
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
+
+
+/***РАБОТА С FileUploader***/
+function GetDataFiles() {
+
+    let fileUploader = document.getElementById("FileUploader");
+    let spanAddImage = fileUploader.previousElementSibling;
+    let imageInfo = document.getElementById("ImageInfo");
+    debugger;
+    if (imageInfo.children[0].children.length === 0) {
+
+        var fileName = CreateSpan("FileName");
+        var fileSize = CreateSpan("FileSize");
+        fileSize.style.color = "grey";
+        fileSize.className = "ml-2";
+        
+    }
+
+    if (fileUploader.files.length === 0) {
+        spanAddImage.innerText = "Добавить изображение";
+
+        imageInfo.className = "invisible";
+        imageInfo.children[0].remove();
+        imageInfo.children[0].children[1].remove();
+        imageInfo.children[0].children[0].remove();
+
+        return;
+    }
+
+    spanAddImage.innerText = "Изменить изображение";
+
+    imageInfo.className = "visible";
+    let childDiv = imageInfo.children[0];
+    childDiv.append(fileName, fileSize);
+    childDiv.children[0].innerText = fileUploader.files[0].name;
+    childDiv.children[1].innerText += CovertToMegabyte(fileUploader.files[0].size).toFixed(2) + " КБ";
+
+    let formData = new FormData();
+    formData.append("imageFile", fileUploader.files[0])
+    AjaxQueryGetImage(formData);
+}
+
+function CreateSpan(elementId) {
+    let span = document.createElement("span");
+    span.id = elementId;
+    return span;
+}
+
+function CovertToMegabyte(byte) {
+    return byte / 1024;
+}
+
+function AjaxQueryGetImage(image) {
+    $.ajax(
+        {
+            type: "POST",
+            data: image,
+            url: "/Shops/GetImage",
+            contentType: false,
+            processData: false,
+            success: function (imageByte) {
+                let image = document.createElement("img");
+                image.src = "data:image/png;base64," + imageByte;
+                image.className = "mt-2";
+                image.style.width = "100%";
+
+                document.getElementById("ImageInfo").insertAdjacentElement("afterbegin", image);
+            },
+            error: function () {
+                alert("Произошла ошибка");
+            }
+        });
+}
+
+/***РАБОТА С FilUploader***/

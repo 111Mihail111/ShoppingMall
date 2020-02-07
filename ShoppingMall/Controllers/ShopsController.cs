@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using ShoppingMall.Infrastructure;
 using ShoppingMall.Store.Interface;
@@ -34,11 +36,22 @@ namespace ShoppingMall.Controllers
         [HttpPost]
         public JsonResult GetCategoryShopByName(string categoryName, List<int> categoryStoreId)
         {
-            
             var config = _autoMapperConfigaration.Create<TypeCategoryStore, StoreCategoryByTypesVM>();
             var storeCategoryByTypesVM = config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStoreByName(categoryName, categoryStoreId ?? new List<int>() { -1}));
 
             return Json(storeCategoryByTypesVM, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetImage(HttpPostedFileBase imageFile)
+        {
+            byte[] imageByte = null;
+            using (var binaryReader = new BinaryReader(imageFile.InputStream))
+            {
+                imageByte = binaryReader.ReadBytes(imageFile.ContentLength);
+            }
+
+            return Json(Convert.ToBase64String(imageByte));
         }
     }
 }
