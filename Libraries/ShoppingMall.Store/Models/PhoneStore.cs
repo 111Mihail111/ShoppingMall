@@ -5,11 +5,11 @@
         /// <summary>
         /// Идентификатор телефона
         /// </summary>
-        public int OnlineStoreId { get; set; }
+        public int PhoneStoreId { get; set; }
 
         /// <summary>
         /// Номер телефона
         /// </summary>
-        public int PhoneStoreName { get; set; }
+        public string PhoneStoreName { get; set; }
     }
 }

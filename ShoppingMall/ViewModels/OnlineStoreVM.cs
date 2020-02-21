@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ShoppingMall.Store.Models;
+using System.Collections.Generic;
 
-namespace ShoppingMall.Store.Models
+namespace ShoppingMall.ViewModels
 {
-    public class OnlineStore
+    public class OnlineStoreVM
     {
         /// <summary>
         /// ИД записи
@@ -32,7 +33,7 @@ namespace ShoppingMall.Store.Models
         /// <summary>
         /// Лист категорий магазина
         /// </summary>
-        public List<CategoryStore> CategoryStorys { get; set; }
+        public List<TypeCategoryStore> TypeCategoryStores { get; set; }
 
         /// <summary>
         /// Лист телефонов
@@ -47,6 +48,6 @@ namespace ShoppingMall.Store.Models
         /// <summary>
         /// Лист региональных данных магазина
         /// </summary>
-        public List<RegionalStoreData> RegionalDateStores { get; set; }
+        public List<RegionalStoreData> RegionalStoreData { get; set; }
     }
 }

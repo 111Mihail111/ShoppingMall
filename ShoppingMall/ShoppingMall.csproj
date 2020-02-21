@@ -304,6 +304,7 @@
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\AutoMapperConfigaration.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="ViewModels\OnlineStoreVM.cs" />
     <Compile Include="ViewModels\StoreCategoriesByTypesVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -25,21 +25,52 @@ function CreateMenuAcordion(button) {
 /***КЛОНИРОВАНИЕ КОНТРОЛОВ***/
 
 //Создание контрола
-function CreateControl(containerElement) {
+function CreateControl(container) {
 
-    let elementContainer = containerElement.getElementsByClassName("row");
-    let countElementContainer = containerElement.childElementCount;
+    let elementContainer = container.getElementsByClassName("row");
+    var countElementContainer = container.childElementCount;
 
     let cloneElement = elementContainer[0].cloneNode(true);
     cloneElement.id += countElementContainer;
     cloneElement.getElementsByTagName('button')[0].disabled = false;
     cloneElement.getElementsByTagName('span')[0].innerText = '+';
 
-    let inputControl = cloneElement.getElementsByTagName('input');
-    inputControl[0].name = "UserControl2[" + countElementContainer + "]." + inputControl[0].id
+    var inputControl = cloneElement.getElementsByTagName('input');
     inputControl[0].value = "";
 
-    containerElement.append(cloneElement);
+    let chieldElementContainer = container.parentElement.parentElement.parentElement.parentElement.parentElement;
+    let panelContainer = chieldElementContainer.parentElement;
+    if (panelContainer.id === "PanelContainer") {
+        
+        var containerId = parseInt(chieldElementContainer.id.toString().slice(-1));
+        if (isNaN(containerId)) {
+            containerId = 0;
+        }
+        
+        let inputNameArray = inputControl[0].name.split(".");
+        inputControl[0].name = "";
+        for (var i = 0; i <= inputNameArray.length - 1; i++) {
+
+            var elementArray;
+            if (i === 1) {
+                elementArray = inputNameArray[i].replace(/[0-9]/, countElementContainer);
+                inputControl[0].name += elementArray + ".";
+                continue;
+            }
+
+            elementArray = inputNameArray[i].replace(/[0-9]/, containerId);
+            if (i === inputNameArray.length - 1) {
+                inputControl[0].name += elementArray;
+                continue;
+            }
+            inputControl[0].name += elementArray + ".";
+        }
+        container.append(cloneElement);
+        return;
+    }
+
+    inputControl[0].name = inputControl[0].name.replace(/[0-9]/, countElementContainer);
+    container.append(cloneElement);
 }
 
 //Смена кнопки
@@ -56,8 +87,6 @@ function ChangedButton(button) {
         button.disabled = false;
     }
     else {
-
-        //Удаление элемента из контейнера
         container.parentNode.removeChild(container);
     }
 
@@ -79,33 +108,27 @@ $(function () {
 
 //Добавление новой панели
 function AddNewPanel(button) {
-
-    //Получение основного контейнера элементов
+    
     let container = document.getElementById("PanelContainer");
-
-    //Клонирование панели из глобальной переменной
     var clonePanel = _panel.cloneNode(true);
+    let elementCount = container.childElementCount;
+    
+    clonePanel.id += elementCount;
 
-    //Увеличение его id от общего количества записей
-    clonePanel.id += container.childElementCount;
-
-    //Смена текста кнопки
+    var inputListContainer = clonePanel.getElementsByTagName("input");
+    for (var i = 0; i < inputListContainer.length; i++) {
+        inputListContainer[i].name = inputListContainer[i].name.replace(/[0-9]/, elementCount);
+    }
+    
     button.children[0].innerText = "Удалить город";
-
-    //Назначение id
     button.attributes[0].value = "bDetetePanel";
-
-    //Назначение события
     button.attributes[1].value = "DeletePanel(this)";
 
-    //Вставка элемента
     container.append(clonePanel);
 }
 
 //Удаление панели
 function DeletePanel(button) {
-
-    //Получение отца элемента и его удаление
     button.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
 }
 
@@ -115,6 +138,7 @@ function DeletePanel(button) {
 
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
 
+
 //Глобальная модель для ajax запроса
 var _model = {
     CategoryName: null,
@@ -123,32 +147,25 @@ var _model = {
 
 //Инициализация DropDownList'а
 $(function () {
-
-    //Получение id input'a
-    let input = document.getElementById('Search')
-
-    //Получение выпадающего списка
+    
+    let input = document.getElementById('Search');
     let dropDownList = document.getElementById('DropDownList');
 
-    //Самовызывающеесе событие, если фокус есть на элементе
     input.onblur = function () {
-
-        //Находим определенный стиль и заменяем на другой
         dropDownList.classList.replace('visible', 'invisibly');
     }
 
-    //Самовызывающеесе событие, если фокуса нет на элементе
     input.onfocus = function () {
-
-        //Находим определенный стиль и заменяем на другой
         dropDownList.classList.replace('invisibly', 'visible');
     }
 
-    //Отслеживаем ввод текста
     input.oninput = function () {
         _model.CategoryName = input.value;
         AjaxQueryGetDataCategory(_model);
     }
+    
+    _model.CategoryName = input.value;
+    AjaxQueryGetDataCategory(_model);
 })
 
 //Ajax запрос получения данных из БД для DropDownList'а
@@ -160,20 +177,17 @@ function AjaxQueryGetDataCategory(model) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
-
             let dropDownList = $("#DropDownListElements");
             dropDownList.empty();
 
             for (i = 0; i < result.length; i++) {
 
-                if (result[i].CategoryStores.length === 0) {
-                    continue;
-                }
-
                 let liHeader = document.createElement("li");
                 liHeader.style.fontWeight = "bold";
                 liHeader.className = "mt-2 ml-2 mb-1"
                 liHeader.innerHTML = result[i].TypeCategoryName;
+                liHeader.id = "Header";
+                liHeader.value = 1 + i;
 
                 dropDownList.append(liHeader);
 
@@ -195,26 +209,24 @@ function AjaxQueryGetDataCategory(model) {
 
 //Наведение фокуса на input при нажатии на область div'а
 function FocusOnInput() {
-
-    //Наводим фокус на элемент
-    document.getElementById('Search').focus();
-
     let input = document.getElementById('Search');
-    _model.CategoryName = input.value;
+    input.focus();
 
+    _model.CategoryName = input.value;
     AjaxQueryGetDataCategory(_model);
 }
 
 //Добавление тэга в лист Категорий
 function AddTagByList(liElement) {
-
+    
     let divContainer = document.getElementById("Category");
     document.getElementById('Search').value = "";
 
     let button = CreateButton(liElement);
     divContainer.insertAdjacentElement('afterbegin', button);
 
-    _model.CategoryStoreId.push(button.value)
+    _model.CategoryStoreId.push(button.value);
+    CreateHiddenField(liElement);
 }
 
 //Создание кнопки
@@ -244,32 +256,114 @@ function CreateButton(liElement) {
 
 //Удаление кнопки выбранного ранее элемента 
 function RemoveButtonElement(iElement) {
-
+    
     let button = iElement.parentElement;
+    RemoveHiddenField(button);
+    button.remove();
 
     let index = _model.CategoryStoreId.indexOf(button.value);
     _model.CategoryStoreId.splice(index, 1);
 
-    button.remove();
+    let input = document.getElementById('Search');
+    _model.CategoryName = input.value;
+
+    AjaxQueryGetDataCategory(_model);
 }
+
+//Создание скрытых полей и вставка в разметку
+function CreateHiddenField(liElement) {
+    
+    let liHeader = GetHeaderDropDownList(liElement);
+
+    let inputHeader = document.createElement("input");
+    inputHeader.id = "TypeCategoryStory";
+    inputHeader.value = liHeader.value;
+    inputHeader.name = GetIndexByNameInputHeader(inputHeader);
+
+    let inputElement = document.createElement("input");
+    inputElement.id = "CategoryStore";
+    inputElement.value = liElement.value;
+    inputElement.textContent = liElement.textContent;
+    inputElement.name = "TypeCategoryStores[" + inputHeader.name.match(/[0-9]/)[0] + "].CategoryStores[0].CategoryStoreId";
+
+    document.getElementById("InputHiddenFields").append(inputHeader, inputElement);
+}
+
+//Получение индекса для инпут хедера
+function GetIndexByNameInputHeader(inputHeader) {
+
+    let hiddenFields = document.getElementById("InputHiddenFields");
+    let arrayInput = hiddenFields.getElementsByTagName("input");
+
+    let count = hiddenFields.childElementCount;
+    for (let i = count; i => 0; i--) {
+
+        let isNull = arrayInput.namedItem("TypeCategoryStores[" + i + "].TypeCategoryStoryId");
+        if (isNull) {
+            index = i++;
+            return inputHeader.name = "TypeCategoryStores[" + i + "].TypeCategoryStoryId";
+        }
+        else if (i === 0) {
+            return inputHeader.name = "TypeCategoryStores[" + i + "].TypeCategoryStoryId";
+        }
+    }
+}
+
+//Получение хедера из dropDownList'a
+function GetHeaderDropDownList(liElement) {
+    let liHeader = liElement;
+    while (liHeader.id != "Header") {
+        liHeader = liHeader.previousSibling;
+    }
+
+    return liHeader;
+}
+
+//Удаление скрытых полей
+function RemoveHiddenField(button) {
+    let text = button.innerText;
+    let hiddenFields = document.getElementById("InputHiddenFields").getElementsByTagName("input");
+    let index = 0;
+    for (var i = 0; i < hiddenFields.length; i++) {
+        if (hiddenFields[i].innerText === text) {
+            hiddenFields[i].remove();
+            hiddenFields[i - 1].remove();
+            i = -1;
+            index = 0;
+            continue;
+        }
+        if (hiddenFields[i].id === "TypeCategoryStory") {
+            hiddenFields[i].name = hiddenFields[i].name.replace(/[0-9]/, index);
+            hiddenFields[i + 1].name = hiddenFields[i + 1].name.replace(/[0-9]/, index);
+            index++;
+        }
+    }
+}
+
 
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
 
 
+
 /***РАБОТА С FileUploader***/
+
+//Получение данных файла
 function GetDataFiles() {
 
     let fileUploader = document.getElementById("FileUploader");
     let spanAddImage = fileUploader.previousElementSibling;
     let imageInfo = document.getElementById("ImageInfo");
-    debugger;
+    
     if (imageInfo.children[0].children.length === 0) {
 
         var fileName = CreateSpan("FileName");
         var fileSize = CreateSpan("FileSize");
         fileSize.style.color = "grey";
         fileSize.className = "ml-2";
-        
+
+        var fileRemove = CreateSpan("FileRemove");
+        fileRemove.innerText = "x";
+        fileRemove.addEventListener("mousedown", function () { RemoveImage(this) }, false);
     }
 
     if (fileUploader.files.length === 0) {
@@ -287,25 +381,28 @@ function GetDataFiles() {
 
     imageInfo.className = "visible";
     let childDiv = imageInfo.children[0];
-    childDiv.append(fileName, fileSize);
+    childDiv.append(fileName, fileSize, fileRemove);
     childDiv.children[0].innerText = fileUploader.files[0].name;
     childDiv.children[1].innerText += CovertToMegabyte(fileUploader.files[0].size).toFixed(2) + " КБ";
 
     let formData = new FormData();
-    formData.append("imageFile", fileUploader.files[0])
+    formData.append("imageFile", fileUploader.files[0]);
     AjaxQueryGetImage(formData);
 }
 
+//Создание span тэга
 function CreateSpan(elementId) {
     let span = document.createElement("span");
     span.id = elementId;
     return span;
 }
 
+//Конвертация байтов в мегабайты
 function CovertToMegabyte(byte) {
     return byte / 1024;
 }
 
+//Ajax запрос по получения картинки и отрисовки ее в UI
 function AjaxQueryGetImage(image) {
     $.ajax(
         {
@@ -328,4 +425,8 @@ function AjaxQueryGetImage(image) {
         });
 }
 
-/***РАБОТА С FilUploader***/
+function RemoveImage() {
+
+}
+
+/***РАБОТА С FileUploader***/

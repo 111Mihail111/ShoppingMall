@@ -32,15 +32,15 @@
 
     <div class="col-3"></div>
 
-    <div class="col-6" style="border: 1px solid #e2e2e2; background-color: #F1F1F1">
-
+    @using (Html.BeginForm("GetOnlineStore", "Shops", FormMethod.Post, new { @class = "col-6", @enctype = "multipart/form-data", @style = "border: 1px solid #e2e2e2; background-color: #F1F1F1" }))
+    {
         <div class="row mt-4">
             <div class="col-12">Ссылка на основной домен:</div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                @Html.TextBox(" ", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
+                @Html.TextBox("UrlStore", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
             </div>
         </div>
 
@@ -50,7 +50,7 @@
 
         <div class="row">
             <div class="col-12">
-                @Html.TextBox(" ", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
+                @Html.TextBox("StoreName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
             </div>
         </div>
 
@@ -65,7 +65,7 @@
         <div class="row mt-2">
             <div class="col-12">
                 <span style="display: inline-block; color: #0275d8; text-decoration: underline">Добавить изображение</span>
-                @Html.TextBox("imageFile", null, new { @id = "FileUploader", @type = "file", @style = "position: relative; display: block; opacity: 0; margin-top: -18px", @accept = "image/*", @onchange = "GetDataFiles(this)" })
+                @Html.TextBox("image", null, new { @id = "FileUploader", @type = "file", @style = "position: relative; display: block; opacity: 0; margin-top: -18px", @accept = "image/*", @onchange = "GetDataFiles(this)" })
             </div>
         </div>
 
@@ -75,7 +75,7 @@
 
         <div class="row">
             <div class="col-12">
-                @Html.TextArea(" ", new { @style = "", @rows = "12", @class = "mt-2 form-control" })
+                @Html.TextArea("Description", new { @rows = "12", @class = "mt-2 form-control" })
             </div>
         </div>
 
@@ -97,9 +97,9 @@
                                 <ul id="DropDownListElements" class="mb-2"></ul>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
                 <div class="row mt-4">
                     <div class="col-5">
                         Телефон
@@ -112,11 +112,11 @@
                 <div id="ContainerPhone">
                     <div id="Element" class="row">
                         <div class="col-10">
-                            @Html.TextBox("UserControl2[0].Phone", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Phone" })
+                            @Html.TextBox("Phones[0].PhoneStoreName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Phone" })
                         </div>
 
                         <div class="col-2">
-                            <button id="bPhone" onclick="ChangedButton(this)" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
+                            <button id="bPhone" onclick="ChangedButton(this)" class="btn mt-1" type="button" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
                                 <span style="font-size: 21px; font-weight: 700;">+</span>
                             </button>
                         </div>
@@ -134,11 +134,11 @@
                 <div id="ContainerEmail">
                     <div id="Element" class="row">
                         <div class="col-10">
-                            @Html.TextBox("UserControl2[0].Email", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Email" })
+                            @Html.TextBox("Emails[0].Email", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Email" })
                         </div>
 
                         <div class="col-2">
-                            <button id="bEmail" onclick="ChangedButton(this)" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
+                            <button id="bEmail" onclick="ChangedButton(this)" type="button" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
                                 <span style="font-size: 21px; font-weight: 700;">+</span>
                             </button>
                         </div>
@@ -162,7 +162,7 @@
 
                                         <div class="row">
                                             <div class="col-12">
-                                                @Html.TextBox(" ", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
+                                                @Html.TextBox("RegionalStoreData[0].City", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "RegionalDateStore" })
                                             </div>
                                         </div>
 
@@ -175,7 +175,7 @@
 
                                         <div class="row">
                                             <div class="col-12">
-                                                @Html.TextBox(" ", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
+                                                @Html.TextBox("RegionalStoreData[0].RegionalSubdomain", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
                                             </div>
                                         </div>
 
@@ -189,11 +189,11 @@
                                         <div id="ContainerAddress">
                                             <div id="Element" class="row">
                                                 <div class="col-10">
-                                                    @Html.TextBox("UserControl2[0].Address", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Address", @placeholder = "Улица, дом, офис ..." })
+                                                    @Html.TextBox("RegionalStoreData[0].Addresses[0].AddressName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Address", @placeholder = "Улица, дом, офис ..." })
                                                 </div>
 
                                                 <div class="col-2">
-                                                    <button id="bAddress" onclick="ChangedButton(this)" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
+                                                    <button id="bAddress" onclick="ChangedButton(this)" type="button" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
                                                         <span style="font-size: 21px; font-weight: 700;">+</span>
                                                     </button>
                                                 </div>
@@ -212,11 +212,11 @@
                                             <div id="Element" class="row">
 
                                                 <div class="col-10">
-                                                    @Html.TextBox("UserControl2[0].RegionPhone", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "RegionPhone" })
+                                                    @Html.TextBox("RegionalStoreData[0].PhoneStores[0].PhoneStoreName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "RegionPhone" })
                                                 </div>
 
                                                 <div class="col-2">
-                                                    <button id="bRegionPhone" onclick="ChangedButton(this)" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
+                                                    <button id="bRegionPhone" onclick="ChangedButton(this)" type="button" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
                                                         <span style="font-size: 21px; font-weight: 700;">+</span>
                                                     </button>
                                                 </div>
@@ -234,11 +234,11 @@
                                         <div id="ContainerRegionEmail">
                                             <div id="Element" class="row">
                                                 <div class="col-10">
-                                                    @Html.TextBox("UserControl2[0].RegionEmail", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "RegionEmail" })
+                                                    @Html.TextBox("RegionalStoreData[0].EmailStores[0].Email", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "RegionEmail" })
                                                 </div>
 
                                                 <div class="col-2">
-                                                    <button id="bRegionEmail" onclick="ChangedButton(this)" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
+                                                    <button id="bRegionEmail" onclick="ChangedButton(this)" type="button" class="btn mt-1" style="width: 43px; height: 43px; background-color: #fcfbfb; border-radius: 100%; border: 1px solid #e1e1e1;">
                                                         <span style="font-size: 21px; font-weight: 700;">+</span>
                                                     </button>
                                                 </div>
@@ -247,7 +247,7 @@
 
                                         <div class="row mt-4 mb-4">
                                             <div class="col-10">
-                                                <button id="bAddNewCity" onclick="AddNewPanel(this)" class="btn btn-block" style="background-color: #f8f8f8; border-radius: 10px">
+                                                <button id="bAddNewCity" onclick="AddNewPanel(this)" type="button" class="btn btn-block" style="background-color: #f8f8f8; border-radius: 10px">
                                                     <span style="font-weight: 600; font-size: 20px">+ Добавить еще город</span>
                                                 </button>
                                             </div>
@@ -261,17 +261,13 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn btn-block btn-lg mb-4" style="background-color: red">
-                            <span class="text-white">Отправить</span>
-                        </button>
+                        <button class="btn btn-block btn-lg mb-4" type="submit" style="background-color: red;"><span class="text-white">Отправить</span></button>
                     </div>
                 </div>
-
-
-
 
                 <div class="col-3"></div>
             </div>
         </div>
-    </div>
+        <div id="InputHiddenFields" style="display: none"></div>
+    }
 </div>

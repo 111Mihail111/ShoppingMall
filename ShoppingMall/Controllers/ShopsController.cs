@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShoppingMall.Infrastructure;
@@ -22,13 +21,14 @@ namespace ShoppingMall.Controllers
             _autoMapperConfigaration = autoMapperConfigaration;
         }
 
-        public ActionResult AvtoMototovary()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult AddShops()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult GetOnlineStore(HttpPostedFileBase image, OnlineStoreVM onlineStoreVM)
         {
             return PartialView();
         }
@@ -37,7 +37,8 @@ namespace ShoppingMall.Controllers
         public JsonResult GetCategoryShopByName(string categoryName, List<int> categoryStoreId)
         {
             var config = _autoMapperConfigaration.Create<TypeCategoryStore, StoreCategoryByTypesVM>();
-            var storeCategoryByTypesVM = config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStoreByName(categoryName, categoryStoreId ?? new List<int>() { -1}));
+            var storeCategoryByTypesVM = 
+                config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStoreByName(categoryName, categoryStoreId ?? new List<int>() { -1}));
 
             return Json(storeCategoryByTypesVM, JsonRequestBehavior.AllowGet);
         }
