@@ -8,5 +8,29 @@
     border-bottom: 5px solid red !important;
 }
 
+/*Стили для крестика*/
+.custom-close {
+    width: 16px;
+    height: 16px;
+    opacity: 0.3;
+}
 
-/*Для выпадающего списка*/
+    .custom-close:hover {
+        opacity: 1;
+    }
+
+    .custom-close:before, .custom-close:after {
+        position: absolute;
+        content: ' ';
+        height: 16px;
+        width: 2px;
+        background-color: #333;
+    }
+
+    .custom-close:before {
+        transform: rotate(45deg);
+    }
+
+    .custom-close:after {
+        transform: rotate(-45deg);
+    }

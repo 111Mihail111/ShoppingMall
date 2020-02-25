@@ -35,7 +35,7 @@
     @using (Html.BeginForm("GetOnlineStore", "Shops", FormMethod.Post, new { @class = "col-6", @enctype = "multipart/form-data", @style = "border: 1px solid #e2e2e2; background-color: #F1F1F1" }))
     {
         <div class="row mt-4">
-            <div class="col-12">Ссылка на основной домен:</div>
+            <div class="col-12">Ссылка на основной домен<strong class="text-danger">*</strong></div>
         </div>
 
         <div class="row">
@@ -45,7 +45,7 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">Название</div>
+            <div class="col-12">Название<strong class="text-danger">*</strong></div>
         </div>
 
         <div class="row">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">Логотип</div>
+            <div class="col-12">Логотип<strong class="text-danger">*</strong></div>
         </div>
 
         <div id="ImageInfo" class="invisible">
@@ -64,13 +64,13 @@
 
         <div class="row mt-2">
             <div class="col-12">
-                <span style="display: inline-block; color: #0275d8; text-decoration: underline">Добавить изображение</span>
+                <span id="CaptionInput" style="display: inline-block; color: #0275d8; text-decoration: underline">Добавить изображение</span>
                 @Html.TextBox("image", null, new { @id = "FileUploader", @type = "file", @style = "position: relative; display: block; opacity: 0; margin-top: -18px", @accept = "image/*", @onchange = "GetDataFiles(this)" })
             </div>
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">Описание</div>
+            <div class="col-12">Описание<strong class="text-danger">*</strong></div>
         </div>
 
         <div class="row">
@@ -80,7 +80,7 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">Категории</div>
+            <div class="col-12">Категории<strong class="text-danger">*</strong></div>
         </div>
 
         <div class="row mt-2">
@@ -101,9 +101,7 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col-5">
-                        Телефон
-                    </div>
+                    <div class="col-5">Телефон</div>
                     <div class="col-5 text-right">
                         <i class="fa fa-question-circle" aria-hidden="true" title="Основной телефон интернет-магазина (для приёма заказов из любых городов)"></i>
                     </div>
@@ -154,7 +152,7 @@
                                     <div class="col-12">
 
                                         <div class="row mt-4">
-                                            <div class="col-6">Город</div>
+                                            <div class="col-6">Город<strong class="text-danger">*</strong></div>
                                             <div class="col-6 text-right">
                                                 <i class="fa fa-question-circle" aria-hidden="true" title="Пожалуйста, выбирайте только тот город/города, где у вас есть собственные пункты выдачи."></i>
                                             </div>
@@ -180,7 +178,7 @@
                                         </div>
 
                                         <div class="row mt-4">
-                                            <div class="col-5">Адрес</div>
+                                            <div class="col-5">Адрес<strong class="text-danger">*</strong></div>
                                             <div class="col-5 text-right">
                                                 <i class="fa fa-question-circle" aria-hidden="true" title="Указывайте адреса только собственных пунктов выдачи. Магазины с адресами транспортных компаний будут отклоняться на этапе модерации."></i>
                                             </div>

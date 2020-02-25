@@ -138,7 +138,6 @@ function DeletePanel(button) {
 
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
 
-
 //Глобальная модель для ajax запроса
 var _model = {
     CategoryName: null,
@@ -340,7 +339,6 @@ function RemoveHiddenField(button) {
     }
 }
 
-
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
 
 
@@ -348,9 +346,8 @@ function RemoveHiddenField(button) {
 /***РАБОТА С FileUploader***/
 
 //Получение данных файла
-function GetDataFiles() {
-
-    let fileUploader = document.getElementById("FileUploader");
+function GetDataFiles(fileUploader) {
+    
     let spanAddImage = fileUploader.previousElementSibling;
     let imageInfo = document.getElementById("ImageInfo");
     
@@ -362,8 +359,9 @@ function GetDataFiles() {
         fileSize.className = "ml-2";
 
         var fileRemove = CreateSpan("FileRemove");
-        fileRemove.innerText = "x";
+        fileRemove.className = "custom-close ml-3";
         fileRemove.addEventListener("mousedown", function () { RemoveImage(this) }, false);
+        fileRemove.style.color = "grey";
     }
 
     if (fileUploader.files.length === 0) {
@@ -371,6 +369,7 @@ function GetDataFiles() {
 
         imageInfo.className = "invisible";
         imageInfo.children[0].remove();
+        imageInfo.children[0].children[2].remove();
         imageInfo.children[0].children[1].remove();
         imageInfo.children[0].children[0].remove();
 
@@ -425,8 +424,24 @@ function AjaxQueryGetImage(image) {
         });
 }
 
-function RemoveImage() {
+//Удаление картинки
+function RemoveImage(span) {
+    let divContainer = span.parentElement;    
 
+    let count = divContainer.childElementCount;
+    for (var i = count - 1; i <= count; i--) {
+        if (i === -1) {
+            divContainer.previousElementSibling.remove();
+
+            let fileUploader = document.getElementById("FileUploader");
+            fileUploader.value = "";
+            fileUploader.previousElementSibling.innerText = "Добавить изображение";
+
+            return;
+        }
+        divContainer.children[i].remove();
+    }
+    
 }
 
 /***РАБОТА С FileUploader***/
