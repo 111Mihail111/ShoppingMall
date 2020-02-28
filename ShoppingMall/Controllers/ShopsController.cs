@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShoppingMall.Infrastructure;
@@ -30,6 +31,10 @@ namespace ShoppingMall.Controllers
         [HttpPost]
         public ActionResult GetOnlineStore(HttpPostedFileBase image, OnlineStoreVM onlineStoreVM)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("AddShopsErrorMessage", ModelState);
+            }
             return PartialView();
         }
 

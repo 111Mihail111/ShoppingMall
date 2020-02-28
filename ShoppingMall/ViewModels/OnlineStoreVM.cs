@@ -1,5 +1,6 @@
 ﻿using ShoppingMall.Store.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ShoppingMall.ViewModels
 {
@@ -10,16 +11,22 @@ namespace ShoppingMall.ViewModels
         /// </summary>
         public int StoreId { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "- Вы не указали ссылку на основной домен!")]
+        [Display(Name = "UrlStore")]
         /// <summary>
         /// URL магазина
         /// </summary>
         public string UrlStore { get; set; }
 
+        [Required (AllowEmptyStrings = false, ErrorMessage = "- Вы не указали название магазина!")]
+        [RegularExpression(".{4,30}", ErrorMessage = "- Минимальная длинна названия - 4 символа. Максимальная - 30.")]
         /// <summary>
         /// Название магазина
         /// </summary>
         public string StoreName { get; set; }
 
+        [Required(ErrorMessage = "- Вы не загрузили логотип!")]
+        [Display(Name = "image")]
         /// <summary>
         /// Логотип магазина
         /// </summary>

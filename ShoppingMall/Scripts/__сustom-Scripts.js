@@ -24,72 +24,63 @@ function CreateMenuAcordion(button) {
 
 /***КЛОНИРОВАНИЕ КОНТРОЛОВ***/
 
-//Создание контрола
-function CreateControl(container) {
+//Добавление контрола
+function AddControl(button) {
+    
+    let element = button.parentElement.parentElement;
+    let inputCollection = element.getElementsByTagName("input");
+    let countElements = element.childElementCount - 1;
 
-    let elementContainer = container.getElementsByClassName("row");
-    var countElementContainer = container.childElementCount;
-
-    let cloneElement = elementContainer[0].cloneNode(true);
-    cloneElement.id += countElementContainer;
+    let cloneElement = element.cloneNode(true);
+    cloneElement.id += countElements;
     cloneElement.getElementsByTagName('button')[0].disabled = false;
     cloneElement.getElementsByTagName('span')[0].innerText = '+';
 
-    var inputControl = cloneElement.getElementsByTagName('input');
-    inputControl[0].value = "";
-
-    let chieldElementContainer = container.parentElement.parentElement.parentElement.parentElement.parentElement;
-    let panelContainer = chieldElementContainer.parentElement;
-    if (panelContainer.id === "PanelContainer") {
-        
-        var containerId = parseInt(chieldElementContainer.id.toString().slice(-1));
-        if (isNaN(containerId)) {
-            containerId = 0;
-        }
-        
-        let inputNameArray = inputControl[0].name.split(".");
-        inputControl[0].name = "";
-        for (var i = 0; i <= inputNameArray.length - 1; i++) {
-
-            var elementArray;
-            if (i === 1) {
-                elementArray = inputNameArray[i].replace(/[0-9]/, countElementContainer);
-                inputControl[0].name += elementArray + ".";
-                continue;
-            }
-
-            elementArray = inputNameArray[i].replace(/[0-9]/, containerId);
-            if (i === inputNameArray.length - 1) {
-                inputControl[0].name += elementArray;
-                continue;
-            }
-            inputControl[0].name += elementArray + ".";
-        }
-        container.append(cloneElement);
-        return;
-    }
-
-    inputControl[0].name = inputControl[0].name.replace(/[0-9]/, countElementContainer);
+    let container = element.parentElement;
     container.append(cloneElement);
+    inputCollection = container.getElementsByTagName("input");
+
+    UpdateNameAttribute(inputCollection);
 }
 
 //Смена кнопки
 function ChangedButton(button) {
-
     let buttonText = button.childNodes[1].innerText;
     let container = button.parentNode.parentNode;
 
     if (buttonText === '+') {
-
         button.childNodes[1].innerText = '-';
         button.disabled = true;
-        CreateControl(container.parentNode);
+        AddControl(button);
         button.disabled = false;
     }
     else {
+        let inputCollection = button.parentElement.parentElement.parentElement.getElementsByTagName("input");
         container.parentNode.removeChild(container);
+        UpdateNameAttribute(inputCollection);
     }
+}
 
+//Обновление атрибута у контролов
+function UpdateNameAttribute(input) {
+    for (var i = 0; i < input.length; i++) {
+        let array = input[i].name.split(".");
+        if (array.length < 3) {
+            input[i].name = input[i].name.replace(/[0-9]/, i)
+            continue;
+        }
+        input[i].name = "";
+        for (var index = 0; index < array.length; index++) {
+            if (index === 1) {
+                array[1] = array[1].replace(/[0-9]/, i);
+            }
+            if (index === 2) {
+                input[i].name += array[index];
+                continue;
+            }
+            input[i].name += array[index] + ".";
+        }
+    }
 }
 
 /***КЛОНИРОВАНИЕ КОНТРОЛОВ***/
@@ -108,18 +99,18 @@ $(function () {
 
 //Добавление новой панели
 function AddNewPanel(button) {
-    
+
     let container = document.getElementById("PanelContainer");
     var clonePanel = _panel.cloneNode(true);
     let elementCount = container.childElementCount;
-    
+
     clonePanel.id += elementCount;
 
     var inputListContainer = clonePanel.getElementsByTagName("input");
     for (var i = 0; i < inputListContainer.length; i++) {
         inputListContainer[i].name = inputListContainer[i].name.replace(/[0-9]/, elementCount);
     }
-    
+
     button.children[0].innerText = "Удалить город";
     button.attributes[0].value = "bDetetePanel";
     button.attributes[1].value = "DeletePanel(this)";
@@ -130,6 +121,19 @@ function AddNewPanel(button) {
 //Удаление панели
 function DeletePanel(button) {
     button.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+    UpdatePanel();
+}
+
+//Обновление панели
+function UpdatePanel() {
+    let panelContainer = document.getElementById("PanelContainer");
+    let count = panelContainer.childElementCount;
+    for (let index = 0; index < count; index++) {
+        let inputCollection = panelContainer.children[index].getElementsByTagName("input");
+        for (let i = 0; i < inputCollection.length; i++) {
+            inputCollection[i].name = inputCollection[i].name.replace(/[0-9]/, index);
+        }
+    }
 }
 
 /***КЛОНИРОВАНИЕ ПАНЕЛИ КОНТРОЛОВ***/
@@ -146,12 +150,20 @@ var _model = {
 
 //Инициализация DropDownList'а
 $(function () {
-    
+
     let input = document.getElementById('Search');
     let dropDownList = document.getElementById('DropDownList');
 
     input.onblur = function () {
         dropDownList.classList.replace('visible', 'invisibly');
+        input.value = "";
+        if (input.previousElementSibling === null) {
+            input.required = true;
+            return;
+        }
+
+        input.parentNode.style.borderColor = "#ced4da";
+        input.required = false;
     }
 
     input.onfocus = function () {
@@ -162,7 +174,7 @@ $(function () {
         _model.CategoryName = input.value;
         AjaxQueryGetDataCategory(_model);
     }
-    
+
     _model.CategoryName = input.value;
     AjaxQueryGetDataCategory(_model);
 })
@@ -217,7 +229,7 @@ function FocusOnInput() {
 
 //Добавление тэга в лист Категорий
 function AddTagByList(liElement) {
-    
+
     let divContainer = document.getElementById("Category");
     document.getElementById('Search').value = "";
 
@@ -255,7 +267,7 @@ function CreateButton(liElement) {
 
 //Удаление кнопки выбранного ранее элемента 
 function RemoveButtonElement(iElement) {
-    
+
     let button = iElement.parentElement;
     RemoveHiddenField(button);
     button.remove();
@@ -271,7 +283,7 @@ function RemoveButtonElement(iElement) {
 
 //Создание скрытых полей и вставка в разметку
 function CreateHiddenField(liElement) {
-    
+
     let liHeader = GetHeaderDropDownList(liElement);
 
     let inputHeader = document.createElement("input");
@@ -347,10 +359,10 @@ function RemoveHiddenField(button) {
 
 //Получение данных файла
 function GetDataFiles(fileUploader) {
-    
+
     let spanAddImage = fileUploader.previousElementSibling;
     let imageInfo = document.getElementById("ImageInfo");
-    
+
     if (imageInfo.children[0].children.length === 0) {
 
         var fileName = CreateSpan("FileName");
@@ -426,7 +438,7 @@ function AjaxQueryGetImage(image) {
 
 //Удаление картинки
 function RemoveImage(span) {
-    let divContainer = span.parentElement;    
+    let divContainer = span.parentElement;
 
     let count = divContainer.childElementCount;
     for (var i = count - 1; i <= count; i--) {
@@ -441,7 +453,73 @@ function RemoveImage(span) {
         }
         divContainer.children[i].remove();
     }
-    
+
 }
 
 /***РАБОТА С FileUploader***/
+
+
+/***СКРИПТ ВАЛИДАЦИИИ***/
+
+//Валидирование формы
+(function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+//Вывести сообщение ошибок валидации
+function DisplayValidationErrorMessages() {
+
+    ValidateCategory();
+    var invalidValidateCount = 0;
+    document.getElementById("ErrorValidate").style.display = "";
+
+    let inputCollection = document.getElementById("OnlineShop").getElementsByTagName("input");
+    for (var i = 0; i < inputCollection.length; i++) {
+
+        let element = inputCollection[i];
+        if (element.getAttribute("required") === null) {
+            continue;
+        }
+
+        if (element.validity.valid === false) {
+            invalidValidateCount++;
+            document.getElementById("MessageInvalid" + element.id).style.display = "";
+        }
+        else {
+            document.getElementById("MessageInvalid" + element.id).style.display = "none";
+        }
+    }
+
+    if (invalidValidateCount === 0) {
+        document.getElementById("ErrorValidate").style.display = "none";
+    }
+}
+
+//Валидация категории
+function ValidateCategory() {
+    let divCategory = document.getElementById("Category");
+
+    let inputSearch = document.getElementById("Search");
+    if (inputSearch.previousElementSibling === null) {
+        inputSearch.required = true;
+        divCategory.style.borderColor = "red";
+        return;
+    }
+
+    divCategory.style.borderColor = "green";
+    inputSearch.required = false;
+}
+
+/***СКРИПТ ВАЛИДАЦИИИ***/

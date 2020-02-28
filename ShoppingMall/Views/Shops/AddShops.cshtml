@@ -32,30 +32,30 @@
 
     <div class="col-3"></div>
 
-    @using (Html.BeginForm("GetOnlineStore", "Shops", FormMethod.Post, new { @class = "col-6", @enctype = "multipart/form-data", @style = "border: 1px solid #e2e2e2; background-color: #F1F1F1" }))
+    @using (Ajax.BeginForm("GetOnlineStore", "Shops", new AjaxOptions { UpdateTargetId = "ErrorMessageServerValidation" }, new { @class = "col-6 needs-validation", @id = "OnlineShop", @enctype = "multipart/form-data", @style = "border: 1px solid #e2e2e2; background-color: #F1F1F1", @novalidate = "novalidate" }))
     {
         <div class="row mt-4">
-            <div class="col-12">Ссылка на основной домен<strong class="text-danger">*</strong></div>
+            <div class="col-12">Ссылка на основной домен <strong class="text-danger">*</strong></div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                @Html.TextBox("UrlStore", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
+                @Html.TextBox("UrlStore", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @required = "required", @type = "url" })
             </div>
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">Название<strong class="text-danger">*</strong></div>
+            <div class="col-12">Название <strong class="text-danger">*</strong></div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                @Html.TextBox("StoreName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px" })
+                @Html.TextBox("StoreName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @required = "required", @pattern = "[^ ].{4,30}" })
             </div>
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">Логотип<strong class="text-danger">*</strong></div>
+            <div class="col-12">Логотип <strong class="text-danger">*</strong></div>
         </div>
 
         <div id="ImageInfo" class="invisible">
@@ -65,17 +65,17 @@
         <div class="row mt-2">
             <div class="col-12">
                 <span id="CaptionInput" style="display: inline-block; color: #0275d8; text-decoration: underline">Добавить изображение</span>
-                @Html.TextBox("image", null, new { @id = "FileUploader", @type = "file", @style = "position: relative; display: block; opacity: 0; margin-top: -18px", @accept = "image/*", @onchange = "GetDataFiles(this)" })
+                @Html.TextBox("image", null, new { @id = "FileUploader", @type = "file", @style = "position: relative; display: block; opacity: 0; margin-top: -18px", @accept = "image/*", @onchange = "GetDataFiles(this)", @required = "required" })
             </div>
         </div>
 
         <div class="row mt-4">
-            <div class="col-12">Описание<strong class="text-danger">*</strong></div>
+            <div class="col-12">Описание</div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                @Html.TextArea("Description", new { @rows = "12", @class = "mt-2 form-control" })
+                @Html.TextArea("Description", new { @rows = "8", @class = "mt-2 form-control", @maxlength = "500" })
             </div>
         </div>
 
@@ -152,7 +152,7 @@
                                     <div class="col-12">
 
                                         <div class="row mt-4">
-                                            <div class="col-6">Город<strong class="text-danger">*</strong></div>
+                                            <div class="col-6">Город <strong class="text-danger">*</strong></div>
                                             <div class="col-6 text-right">
                                                 <i class="fa fa-question-circle" aria-hidden="true" title="Пожалуйста, выбирайте только тот город/города, где у вас есть собственные пункты выдачи."></i>
                                             </div>
@@ -160,7 +160,7 @@
 
                                         <div class="row">
                                             <div class="col-12">
-                                                @Html.TextBox("RegionalStoreData[0].City", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "RegionalDateStore" })
+                                                @Html.TextBox("RegionalStoreData[0].City", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "RegionalDateStore", @required = "required" })
                                             </div>
                                         </div>
 
@@ -178,7 +178,7 @@
                                         </div>
 
                                         <div class="row mt-4">
-                                            <div class="col-5">Адрес<strong class="text-danger">*</strong></div>
+                                            <div class="col-5">Адрес <strong class="text-danger">*</strong></div>
                                             <div class="col-5 text-right">
                                                 <i class="fa fa-question-circle" aria-hidden="true" title="Указывайте адреса только собственных пунктов выдачи. Магазины с адресами транспортных компаний будут отклоняться на этапе модерации."></i>
                                             </div>
@@ -187,7 +187,7 @@
                                         <div id="ContainerAddress">
                                             <div id="Element" class="row">
                                                 <div class="col-10">
-                                                    @Html.TextBox("RegionalStoreData[0].Addresses[0].AddressName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Address", @placeholder = "Улица, дом, офис ..." })
+                                                    @Html.TextBox("RegionalStoreData[0].Addresses[0].AddressName", null, new { @class = "form-control mt-2", @style = "border-radius: 0px", @id = "Address", @placeholder = "Улица, дом, офис ...", @required = "required", @pattern = @"[^ ].{4,30}" })
                                                 </div>
 
                                                 <div class="col-2">
@@ -257,15 +257,78 @@
                         </div>
                     </div>
                 </div>
+
+                @*БЛОК ВЫВОДА СООБЩЕНИЙ ОБ ОШИБКАХ ВАЛИДАЦИИ*@
+                <div id="ErrorValidate" class="row" style="display: none">
+                    <div class="col-12 text-danger">
+                        <div class="mb-4" style="border: 1px solid red">
+
+                            <div class="ml-2 mt-2 mb-2" id="MessageInvalidUrlStore" style="display: none">
+                                <span>Некорректный URL! Возможные причины ошибок:</span>
+                                <ul class="ml-3">
+                                    <li class="mt-1">- Вы не указали ссылку на основной домен.</li>
+                                </ul>
+                            </div>
+
+                            <div class="ml-2 mt-2 mb-2" id="MessageInvalidStoreName" style="display: none">
+                                <span>Некорректное Название! Возможные причины ошибок:</span>
+                                <ul class="ml-3">
+                                    <li class="mt-1">- Вы оставили поле с названием пустым.</li>
+                                    <li class="mt-1">- Вы поставили один или несколько пробелов.</li>
+                                    <li class="mt-1">- Ваше название менее пяти символов.</li>
+                                    <li class="mt-1">- Ваше название более тридцати символов.</li>
+                                </ul>
+                            </div>
+
+                            <div class="ml-2 mt-2 mb-2" id="MessageInvalidFileUploader" style="display: none">
+                                <span>Некорректный Логотип! Возможные причины ошибок:</span>
+                                <ul class="ml-3">
+                                    <li class="mt-1">- Вы не загрузили файл.</li>
+                                </ul>
+                            </div>
+
+                            <div class="ml-2 mt-2 mb-2" id="MessageInvalidSearch" style="display: none">
+                                <span>Некорректная Категория! Возможные причины ошибок:</span>
+                                <ul class="ml-3">
+                                    <li class="mt-1">- Вы не выбрали ни одной категории.</li>
+                                </ul>
+                            </div>
+
+                            <div class="ml-2 mt-2 mb-2" id="MessageInvalidRegionalDateStore" style="display: none">
+                                <span>Некорректный Город! Возможные причины ошибок:</span>
+                                <ul class="ml-3">
+                                    <li class="mt-1">- Вы не выбрали город из выпадающего списка.</li>
+                                </ul>
+                            </div>
+
+                            <div class="ml-2 mb-2" id="MessageInvalidAddress" style="display: none">
+                                <span>Некорректный Адрес! Возможные причины ошибок:</span>
+                                <ul class="ml-3">
+                                    <li class="mt-1">- Вы не указали ни одного адреса.</li>
+                                    <li class="mt-1">- Вы добавили несколько полей адреса, но оставили их пустыми.</li>
+                                    <li class="mt-1">- Ваш адрес не соответствуют минимальной длинне в пять символов.</li>
+                                    <li class="mt-1">- Ваш адрес начинается с пробела.</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ErrorMessageServerValidation" class="row">
+                    @Html.Partial("AddShopsErrorMessage")
+                </div>
+
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn btn-block btn-lg mb-4" type="submit" style="background-color: red;"><span class="text-white">Отправить</span></button>
+                        <button class="btn btn-block btn-lg mb-4" type="submit" onclick="DisplayValidationErrorMessages()" style="background-color: red; padding: 20px"><span class="text-white">Отправить</span></button>
                     </div>
                 </div>
 
                 <div class="col-3"></div>
             </div>
         </div>
+
         <div id="InputHiddenFields" style="display: none"></div>
     }
 </div>

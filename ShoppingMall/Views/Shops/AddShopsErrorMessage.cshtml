@@ -1,0 +1,20 @@
+﻿@model System.Web.Mvc.ModelStateDictionary
+
+<div class="col-12">
+    @if (Model != null)
+    {
+        <div class="mb-2" style="border: 1px solid red">
+            @foreach (var item in Model)
+            {
+                foreach (var error in item.Value.Errors)
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="ml-2 mt-2 mb-2 text-danger mb-2">@error.ErrorMessage</h3>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
