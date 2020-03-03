@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\ICategoryService.cs" />
-    <Compile Include="Interface\IShop.cs" />
     <Compile Include="Mapping\CategoryStoryMap.cs" />
     <Compile Include="Mapping\OnlineStoreMap.cs" />
     <Compile Include="Mapping\TypeCategoryStoryMap.cs" />
