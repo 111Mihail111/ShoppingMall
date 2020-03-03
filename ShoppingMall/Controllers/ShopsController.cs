@@ -14,17 +14,21 @@ namespace ShoppingMall.Controllers
     public class ShopsController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly ICity _city;
         private readonly AutoMapperConfigaration _autoMapperConfigaration;
 
-        public ShopsController(ICategoryService categoryService, AutoMapperConfigaration autoMapperConfigaration)
+        public ShopsController(ICategoryService categoryService, ICity city, AutoMapperConfigaration autoMapperConfigaration)
         {
             _categoryService = categoryService;
+            _city = city;
             _autoMapperConfigaration = autoMapperConfigaration;
         }
 
         [HttpGet]
         public ActionResult AddShops()
         {
+            var a = _city.GetAllCities();
+
             return PartialView();
         }
 

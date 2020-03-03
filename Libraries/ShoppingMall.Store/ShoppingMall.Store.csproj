@@ -56,17 +56,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\ICategoryService.cs" />
+    <Compile Include="Interface\ICity.cs" />
     <Compile Include="Mapping\CategoryStoryMap.cs" />
+    <Compile Include="Mapping\CityMap.cs" />
     <Compile Include="Mapping\OnlineStoreMap.cs" />
     <Compile Include="Mapping\TypeCategoryStoryMap.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CategoryStore.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\EmailStore.cs" />
     <Compile Include="Models\OnlineStore.cs" />
     <Compile Include="Models\PhoneStore.cs" />
     <Compile Include="Models\RegionalStoreData.cs" />
     <Compile Include="Models\TypeCategoryStore.cs" />
     <Compile Include="Service\CategoryService.cs" />
+    <Compile Include="Service\CityService.cs" />
     <Compile Include="StoreContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

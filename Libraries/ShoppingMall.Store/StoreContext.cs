@@ -14,12 +14,14 @@ namespace ShoppingMall.Store
 
             modelBuilder.Configurations.Add(new CategoryStoreMap());
             modelBuilder.Configurations.Add(new TypeCategoryStoreMap());
+            modelBuilder.Configurations.Add(new CityMap());
 
             //  modelBuilder.Configurations.Add(new OnlineStoreMap());
         }
 
         public DbSet<CategoryStore> CategoryStores { get; set; }
         public DbSet<TypeCategoryStore> TypeCategoryStores { get; set; }
+        public DbSet<City> Cities { get; set; }
         //public DbSet<OnlineStore> OnlineStores { get; set; }
 
     }

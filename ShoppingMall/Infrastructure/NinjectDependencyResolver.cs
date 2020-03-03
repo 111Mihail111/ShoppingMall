@@ -30,6 +30,7 @@ namespace ShoppingMall.Infrastructure
         private void AddBindings()
         {
             kernel.Bind<ICategoryService>().To<CategoryService>();
+            kernel.Bind<ICity>().To<CityService>();
             kernel.Bind<AutoMapperConfigaration>().To<AutoMapperConfigaration>();
         }
     }

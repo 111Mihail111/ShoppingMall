@@ -7,3 +7,4 @@ storage.ide
 storage.ide-shm
 storage.ide-wal
 /.vs/ShoppingMall/v16/.suo
+/.vs/ShoppingMall/config/applicationhost.config
