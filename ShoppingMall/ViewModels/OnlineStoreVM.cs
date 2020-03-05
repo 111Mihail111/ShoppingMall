@@ -1,6 +1,8 @@
-﻿using ShoppingMall.Store.Models;
+﻿using ShoppingMall.Extensions;
+using ShoppingMall.Store.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace ShoppingMall.ViewModels
 {
@@ -11,6 +13,7 @@ namespace ShoppingMall.ViewModels
         /// </summary>
         public int StoreId { get; set; }
 
+        [Url(ErrorMessage = "- Укажите корректную ссылку на стартовую страницу вашего сайта!")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "- Вы не указали ссылку на основной домен!")]
         [Display(Name = "UrlStore")]
         /// <summary>
@@ -25,12 +28,12 @@ namespace ShoppingMall.ViewModels
         /// </summary>
         public string StoreName { get; set; }
 
-        [Required(ErrorMessage = "- Вы не загрузили логотип!")]
-        [Display(Name = "image")]
+        [MyFileExtensions(fileExtensions: ".png|.jpg|.jpeg|.svg", ErrorMessage = "- Некоректный логотип! Допустимы следующие форматы: .png .jpg .jpeg .svg")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "- Вы не загрузили логотип!")]
         /// <summary>
         /// Логотип магазина
         /// </summary>
-        public byte[] LogoStore { get; set; }
+        public HttpPostedFileBase LogoStore { get; set; }
 
         /// <summary>
         /// Описание магазина

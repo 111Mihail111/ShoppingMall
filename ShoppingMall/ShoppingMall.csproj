@@ -298,12 +298,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShopsController.cs" />
+    <Compile Include="Extensions\FileExtensionsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\AutoMapperConfigaration.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="ViewModels\CityVM.cs" />
     <Compile Include="ViewModels\OnlineStoreVM.cs" />
     <Compile Include="ViewModels\StoreCategoriesByTypesVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

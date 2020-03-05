@@ -27,13 +27,11 @@ namespace ShoppingMall.Controllers
         [HttpGet]
         public ActionResult AddShops()
         {
-            var a = _city.GetAllCities();
-
             return PartialView();
         }
 
         [HttpPost]
-        public ActionResult GetOnlineStore(HttpPostedFileBase image, OnlineStoreVM onlineStoreVM)
+        public ActionResult GetOnlineStore(OnlineStoreVM onlineStoreVM)
         {
             if (!ModelState.IsValid)
             {
@@ -62,6 +60,15 @@ namespace ShoppingMall.Controllers
             }
 
             return Json(Convert.ToBase64String(imageByte));
+        }
+
+        [HttpPost]
+        public JsonResult GetCities()
+        {
+            var config = _autoMapperConfigaration.Create<City, CityVM>();
+            var cities = config.Map<IEnumerable<CityVM>>(_city.GetAllCities());
+
+            return Json(cities, JsonRequestBehavior.AllowGet);
         }
     }
 }

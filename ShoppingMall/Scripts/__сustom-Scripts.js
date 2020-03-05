@@ -1,4 +1,15 @@
-﻿/***РАСКРЫТИЕ/СОКРЫТИЕ ЭЛЕМЕНТОВ МЕНЮ***/
+﻿/***ИНИЦИАЛИЗАЦИЯ СКРИПТОВ СТРАНИЦЫ***/
+
+$(function () {
+    AjaxQueryGetCity();
+    CategoryStoreDdl();
+})
+
+/***ИНИЦИАЛИЗАЦИЯ СКРИПТОВ СТРАНИЦЫ***/
+
+
+
+/***РАСКРЫТИЕ/СОКРЫТИЕ ЭЛЕМЕНТОВ МЕНЮ***/
 
 //Создание меню кнопок
 function CreateMenuAcordion(button) {
@@ -93,9 +104,9 @@ function UpdateNameAttribute(input) {
 var _panel;
 
 //Клонирование панели при входе на страницу
-$(function () {
+function ClonePanelRegionalDate() {
     _panel = document.getElementById("Panel").cloneNode(true);
-})
+}
 
 //Добавление новой панели
 function AddNewPanel(button) {
@@ -143,13 +154,13 @@ function UpdatePanel() {
 /***РАБОТА С КАТЕГОРИЯМИ ТОВАРОВ***/
 
 //Глобальная модель для ajax запроса
-var _model = {
+var _StoreCategoryByTypes = {
     CategoryName: null,
     CategoryStoreId: []
 };
 
 //Инициализация DropDownList'а
-$(function () {
+function CategoryStoreDdl () {
 
     let input = document.getElementById('Search');
     let dropDownList = document.getElementById('DropDownList');
@@ -171,15 +182,15 @@ $(function () {
     }
 
     input.oninput = function () {
-        _model.CategoryName = input.value;
-        AjaxQueryGetDataCategory(_model);
+        _StoreCategoryByTypes.CategoryName = input.value;
+        AjaxQueryGetDataCategory(_StoreCategoryByTypes);
     }
 
-    _model.CategoryName = input.value;
-    AjaxQueryGetDataCategory(_model);
-})
+    _StoreCategoryByTypes.CategoryName = input.value;
+    AjaxQueryGetDataCategory(_StoreCategoryByTypes);
+}
 
-//Ajax запрос получения данных из БД для DropDownList'а
+//Ajax запрос получения категорий из БД для DropDownList'а
 function AjaxQueryGetDataCategory(model) {
     $.ajax({
         type: "POST",
@@ -223,8 +234,8 @@ function FocusOnInput() {
     let input = document.getElementById('Search');
     input.focus();
 
-    _model.CategoryName = input.value;
-    AjaxQueryGetDataCategory(_model);
+    _StoreCategoryByTypes.CategoryName = input.value;
+    AjaxQueryGetDataCategory(_StoreCategoryByTypes);
 }
 
 //Добавление тэга в лист Категорий
@@ -236,7 +247,7 @@ function AddTagByList(liElement) {
     let button = CreateButton(liElement);
     divContainer.insertAdjacentElement('afterbegin', button);
 
-    _model.CategoryStoreId.push(button.value);
+    _StoreCategoryByTypes.CategoryStoreId.push(button.value);
     CreateHiddenField(liElement);
 }
 
@@ -272,13 +283,13 @@ function RemoveButtonElement(iElement) {
     RemoveHiddenField(button);
     button.remove();
 
-    let index = _model.CategoryStoreId.indexOf(button.value);
-    _model.CategoryStoreId.splice(index, 1);
+    let index = _StoreCategoryByTypes.CategoryStoreId.indexOf(button.value);
+    _StoreCategoryByTypes.CategoryStoreId.splice(index, 1);
 
     let input = document.getElementById('Search');
-    _model.CategoryName = input.value;
+    _StoreCategoryByTypes.CategoryName = input.value;
 
-    AjaxQueryGetDataCategory(_model);
+    AjaxQueryGetDataCategory(_StoreCategoryByTypes);
 }
 
 //Создание скрытых полей и вставка в разметку
@@ -430,9 +441,6 @@ function AjaxQueryGetImage(image) {
 
                 document.getElementById("ImageInfo").insertAdjacentElement("afterbegin", image);
             },
-            error: function () {
-                alert("Произошла ошибка");
-            }
         });
 }
 
@@ -443,7 +451,11 @@ function RemoveImage(span) {
     let count = divContainer.childElementCount;
     for (var i = count - 1; i <= count; i--) {
         if (i === -1) {
-            divContainer.previousElementSibling.remove();
+
+            let image = divContainer.previousElementSibling;
+            if (image != null) {
+                image.remove();
+            }
 
             let fileUploader = document.getElementById("FileUploader");
             fileUploader.value = "";
@@ -457,6 +469,7 @@ function RemoveImage(span) {
 }
 
 /***РАБОТА С FileUploader***/
+
 
 
 /***СКРИПТ ВАЛИДАЦИИИ***/
@@ -523,3 +536,35 @@ function ValidateCategory() {
 }
 
 /***СКРИПТ ВАЛИДАЦИИИ***/
+
+
+
+/***РАБОТА С DropDownlList ГОРОДОВ***/
+
+//Модель городов
+var _Cities = {
+    Id: null,
+    Name: null
+};
+
+//Ajax запрос получения городов из БД для DropDownList'а
+function AjaxQueryGetCity() {
+    $.ajax({
+        type: "POST",
+        url: "/Shops/GetCities/",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (cities) {
+            for (var i = 0; i < cities.length; i++) {
+                let option = document.createElement('option');
+                option.value = cities[i].Id;
+                option.text = cities[i].Name;
+                document.getElementById("RegionalDateStore").insertAdjacentElement("beforeEnd", option);
+            }
+            ClonePanelRegionalDate();
+        }
+    });
+}
+
+
+/***РАБОТА С DropDownlList ГОРОДОВ***/
