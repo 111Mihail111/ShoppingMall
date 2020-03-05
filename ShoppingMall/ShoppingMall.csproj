@@ -302,12 +302,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\InputHelper.cs" />
     <Compile Include="Infrastructure\AutoMapperConfigaration.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="ViewModels\AddressVM.cs" />
+    <Compile Include="ViewModels\CategoryStoreVM.cs" />
     <Compile Include="ViewModels\CityVM.cs" />
+    <Compile Include="ViewModels\EmailStoreVM.cs" />
     <Compile Include="ViewModels\OnlineStoreVM.cs" />
-    <Compile Include="ViewModels\StoreCategoriesByTypesVM.cs" />
+    <Compile Include="ViewModels\PhoneStoreVM.cs" />
+    <Compile Include="ViewModels\RegionalStoreDataVM.cs" />
+    <Compile Include="ViewModels\TypeCategoryStoreVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

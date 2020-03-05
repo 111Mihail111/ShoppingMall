@@ -1,15 +1,15 @@
 ﻿namespace ShoppingMall.ViewModels
 {
-    public class CityVM
+    public class EmailStoreVM
     {
         /// <summary>
-        /// Идентификатор города
+        /// Идентификатор
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Наименование города
+        /// Электронный адрес почты
         /// </summary>
-        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }

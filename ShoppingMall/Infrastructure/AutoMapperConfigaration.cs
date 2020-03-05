@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ShoppingMall.Store.Models;
+using ShoppingMall.ViewModels;
 
 namespace ShoppingMall.Infrastructure
 {
@@ -7,6 +9,16 @@ namespace ShoppingMall.Infrastructure
         public IMapper Create<G, F>()
         {
             return new MapperConfiguration(cfg => cfg.CreateMap<G, F>()).CreateMapper();
+        }
+
+        public IMapper TypeCategoryMapper()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<TypeCategoryStore, TypeCategoryStoreVM>();
+                cfg.CreateMap<CategoryStore, CategoryStoreVM>();
+            }).CreateMapper();
+            return mapper;
         }
     }
 }

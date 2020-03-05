@@ -8,11 +8,6 @@ namespace ShoppingMall.ViewModels
 {
     public class OnlineStoreVM
     {
-        /// <summary>
-        /// ИД записи
-        /// </summary>
-        public int StoreId { get; set; }
-
         [Url(ErrorMessage = "- Укажите корректную ссылку на стартовую страницу вашего сайта!")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "- Вы не указали ссылку на основной домен!")]
         [Display(Name = "UrlStore")]
@@ -43,17 +38,17 @@ namespace ShoppingMall.ViewModels
         /// <summary>
         /// Лист категорий магазина
         /// </summary>
-        public List<TypeCategoryStore> TypeCategoryStores { get; set; }
+        public List<TypeCategoryStoreVM> TypeCategoryStores { get; set; }
 
         /// <summary>
         /// Лист телефонов
         /// </summary>
-        public List<PhoneStore> Phones { get; set; }
+        public List<PhoneStoreVM> Phones { get; set; }
 
         /// <summary>
         /// Лист Email's
         /// </summary>
-        public List<EmailStore> Emails { get; set; }
+        public List<EmailStoreVM> Emails { get; set; }
 
         /// <summary>
         /// Лист региональных данных магазина

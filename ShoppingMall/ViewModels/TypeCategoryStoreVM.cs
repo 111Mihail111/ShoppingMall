@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace ShoppingMall.ViewModels
 {
-    public class StoreCategoryByTypesVM
+    public class TypeCategoryStoreVM
     {
         /// <summary>
         /// Лист категорий магазинов
         /// </summary>
-        public List<CategoryStore> CategoryStores { get; set; }
+        public List<CategoryStoreVM> CategoryStores { get; set; }
 
         /// <summary>
         /// Наименование типа категории

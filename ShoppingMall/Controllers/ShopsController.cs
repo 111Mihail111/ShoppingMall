@@ -43,9 +43,9 @@ namespace ShoppingMall.Controllers
         [HttpPost]
         public JsonResult GetCategoryShopByName(string categoryName, List<int> categoryStoreId)
         {
-            var config = _autoMapperConfigaration.Create<TypeCategoryStore, StoreCategoryByTypesVM>();
+            var config = _autoMapperConfigaration.TypeCategoryMapper();
             var storeCategoryByTypesVM = 
-                config.Map<IEnumerable<StoreCategoryByTypesVM>>(_categoryService.GetCategoryStoreByName(categoryName, categoryStoreId ?? new List<int>() { -1}));
+                config.Map<IEnumerable<TypeCategoryStoreVM>>(_categoryService.GetCategoryStoreByName(categoryName, categoryStoreId ?? new List<int>() { -1}));
 
             return Json(storeCategoryByTypesVM, JsonRequestBehavior.AllowGet);
         }

@@ -213,7 +213,7 @@ function AjaxQueryGetDataCategory(model) {
 
                 dropDownList.append(liHeader);
 
-                for (index = 0; index < result[i].CategoryStores.length; index++) {
+                for (index = 0; index <= result[i].CategoryStores.length - 1; index++) {
 
                     let liElement = document.createElement("li");
                     liElement.className = "ml-3 mt-1";

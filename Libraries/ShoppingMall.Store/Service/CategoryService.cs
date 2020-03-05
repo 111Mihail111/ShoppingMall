@@ -24,7 +24,7 @@ namespace ShoppingMall.Store.Service
 
         public List<TypeCategoryStore> GetCategoryStoreByName(string categoryName, IEnumerable<int> categoryStoreId)
         {
-            Expression<Func<CategoryStore, bool>> predicate = (item) => (item.CategoryName.StartsWith(categoryName) || string.IsNullOrEmpty(categoryName)) && !categoryStoreId.Contains(item.CategoryStoreId);
+            Expression<Func<CategoryStore, bool>> predicate = (item) => (item.CategoryName.ToLower().StartsWith(categoryName.ToLower()) || string.IsNullOrEmpty(categoryName)) && !categoryStoreId.Contains(item.CategoryStoreId);
 
             var typeEntities = _storeContext.TypeCategoryStores
                     .Include(i => i.CategoryStores)
