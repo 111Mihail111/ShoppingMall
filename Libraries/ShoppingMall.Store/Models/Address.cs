@@ -1,5 +1,8 @@
 ﻿namespace ShoppingMall.Store.Models
 {
+    /// <summary>
+    /// Адрес
+    /// </summary>
     public class Address
     {
         /// <summary>

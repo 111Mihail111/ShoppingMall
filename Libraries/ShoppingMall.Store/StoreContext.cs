@@ -15,14 +15,17 @@ namespace ShoppingMall.Store
             modelBuilder.Configurations.Add(new CategoryStoreMap());
             modelBuilder.Configurations.Add(new TypeCategoryStoreMap());
             modelBuilder.Configurations.Add(new CityMap());
-
-            //  modelBuilder.Configurations.Add(new OnlineStoreMap());
+            modelBuilder.Configurations.Add(new PhoneStoreMap());
+            modelBuilder.Configurations.Add(new EmailStoreMap());
+            modelBuilder.Configurations.Add(new OnlineStoreMap());
         }
 
         public DbSet<CategoryStore> CategoryStores { get; set; }
         public DbSet<TypeCategoryStore> TypeCategoryStores { get; set; }
         public DbSet<City> Cities { get; set; }
-        //public DbSet<OnlineStore> OnlineStores { get; set; }
+        public DbSet<PhoneStore> PhoneStores { get; set; }
+        public DbSet<EmailStore> EmailStores { get; set; }
+        public DbSet<OnlineStore> OnlineStores { get; set; }
 
     }
 

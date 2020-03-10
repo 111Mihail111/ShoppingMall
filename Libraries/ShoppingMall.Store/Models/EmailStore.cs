@@ -1,5 +1,8 @@
 ﻿namespace ShoppingMall.Store.Models
 {
+    /// <summary>
+    /// Email магазина
+    /// </summary>
     public class EmailStore
     {
         /// <summary>
@@ -8,8 +11,8 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// Электронный адрес почты
+        /// Наименование адреса
         /// </summary>
-        public string Email { get; set; }
+        public string Name { get; set; }
     }
 }

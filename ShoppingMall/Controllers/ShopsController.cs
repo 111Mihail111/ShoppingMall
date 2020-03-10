@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShoppingMall.Infrastructure;
 using ShoppingMall.Store.Interface;
 using ShoppingMall.Store.Models;
-using ShoppingMall.ViewModels;
+using ShoppingMall.ViewModels.Shops;
 
 namespace ShoppingMall.Controllers
 {

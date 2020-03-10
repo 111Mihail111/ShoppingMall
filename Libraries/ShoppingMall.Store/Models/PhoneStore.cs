@@ -1,5 +1,8 @@
 ﻿namespace ShoppingMall.Store.Models
 {
+    /// <summary>
+    /// Телефон магазина
+    /// </summary>
     public class PhoneStore
     {
         /// <summary>

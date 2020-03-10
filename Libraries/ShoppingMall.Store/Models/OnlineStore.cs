@@ -2,6 +2,9 @@
 
 namespace ShoppingMall.Store.Models
 {
+    /// <summary>
+    /// Онлайн магазин
+    /// </summary>
     public class OnlineStore
     {
         /// <summary>

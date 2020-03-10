@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ShoppingMall.Store.Models;
-using ShoppingMall.ViewModels;
+using ShoppingMall.ViewModels.Shops;
 
 namespace ShoppingMall.Infrastructure
 {

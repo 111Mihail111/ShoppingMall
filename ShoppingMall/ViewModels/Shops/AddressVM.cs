@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingMall.ViewModels
+namespace ShoppingMall.ViewModels.Shops
 {
+    /// <summary>
+    /// Адрес VM
+    /// </summary>
     public class AddressVM
     {
         /// <summary>

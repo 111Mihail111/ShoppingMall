@@ -1,4 +1,4 @@
-﻿namespace ShoppingMall.ViewModels
+﻿namespace ShoppingMall.ViewModels.Shops
 {
     public class EmailStoreVM
     {

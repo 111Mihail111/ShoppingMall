@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 
-namespace ShoppingMall.ViewModels
+namespace ShoppingMall.ViewModels.Shops
 {
+    /// <summary>
+    /// Онлайн магазин VM
+    /// </summary>
     public class OnlineStoreVM
     {
         [Url(ErrorMessage = "- Укажите корректную ссылку на стартовую страницу вашего сайта!")]

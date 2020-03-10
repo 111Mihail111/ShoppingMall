@@ -46,6 +46,7 @@ function AddControl(button) {
     cloneElement.id += countElements;
     cloneElement.getElementsByTagName('button')[0].disabled = false;
     cloneElement.getElementsByTagName('span')[0].innerText = '+';
+    cloneElement.getElementsByTagName("input")[0].value = "";
 
     let container = element.parentElement;
     container.append(cloneElement);
@@ -56,6 +57,7 @@ function AddControl(button) {
 
 //Смена кнопки
 function ChangedButton(button) {
+    
     let buttonText = button.childNodes[1].innerText;
     let container = button.parentNode.parentNode;
 

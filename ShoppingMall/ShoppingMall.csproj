@@ -304,14 +304,14 @@
     </Compile>
     <Compile Include="Infrastructure\AutoMapperConfigaration.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
-    <Compile Include="ViewModels\AddressVM.cs" />
-    <Compile Include="ViewModels\CategoryStoreVM.cs" />
-    <Compile Include="ViewModels\CityVM.cs" />
-    <Compile Include="ViewModels\EmailStoreVM.cs" />
-    <Compile Include="ViewModels\OnlineStoreVM.cs" />
-    <Compile Include="ViewModels\PhoneStoreVM.cs" />
-    <Compile Include="ViewModels\RegionalStoreDataVM.cs" />
-    <Compile Include="ViewModels\TypeCategoryStoreVM.cs" />
+    <Compile Include="ViewModels\Shops\AddressVM.cs" />
+    <Compile Include="ViewModels\Shops\CategoryStoreVM.cs" />
+    <Compile Include="ViewModels\Shops\CityVM.cs" />
+    <Compile Include="ViewModels\Shops\EmailStoreVM.cs" />
+    <Compile Include="ViewModels\Shops\OnlineStoreVM.cs" />
+    <Compile Include="ViewModels\Shops\PhoneStoreVM.cs" />
+    <Compile Include="ViewModels\Shops\RegionalStoreDataVM.cs" />
+    <Compile Include="ViewModels\Shops\TypeCategoryStoreVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

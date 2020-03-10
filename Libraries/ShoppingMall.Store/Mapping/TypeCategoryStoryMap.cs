@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace ShoppingMall.Store.Mapping
 {
-    internal class TypeCategoryStoreMap : EntityTypeConfiguration<TypeCategoryStore>
+    public class TypeCategoryStoreMap : EntityTypeConfiguration<TypeCategoryStore>
     {
         public TypeCategoryStoreMap()
         {

@@ -59,7 +59,9 @@
     <Compile Include="Interface\ICity.cs" />
     <Compile Include="Mapping\CategoryStoryMap.cs" />
     <Compile Include="Mapping\CityMap.cs" />
+    <Compile Include="Mapping\EmailStoreMap.cs" />
     <Compile Include="Mapping\OnlineStoreMap.cs" />
+    <Compile Include="Mapping\PhoneStoreMap.cs" />
     <Compile Include="Mapping\TypeCategoryStoryMap.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CategoryStore.cs" />
