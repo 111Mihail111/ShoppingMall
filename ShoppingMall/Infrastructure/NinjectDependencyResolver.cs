@@ -31,6 +31,7 @@ namespace ShoppingMall.Infrastructure
         {
             kernel.Bind<ICategoryService>().To<CategoryService>();
             kernel.Bind<ICity>().To<CityService>();
+            kernel.Bind<IOnlineStore>().To<OnlineStoreService>();
             kernel.Bind<AutoMapperConfigaration>().To<AutoMapperConfigaration>();
         }
     }

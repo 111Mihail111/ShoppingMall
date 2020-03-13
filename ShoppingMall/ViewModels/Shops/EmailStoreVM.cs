@@ -1,12 +1,10 @@
 ﻿namespace ShoppingMall.ViewModels.Shops
 {
+    /// <summary>
+    /// Email магазина VM
+    /// </summary>
     public class EmailStoreVM
     {
-        /// <summary>
-        /// Идентификатор
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// Электронный адрес почты
         /// </summary>

@@ -1,5 +1,8 @@
 ﻿namespace ShoppingMall.ViewModels.Shops
 {
+    /// <summary>
+    /// Категории магазина VM
+    /// </summary>
     public class CategoryStoreVM
     {
         /// <summary>

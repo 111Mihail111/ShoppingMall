@@ -1,12 +1,13 @@
-﻿namespace ShoppingMall.ViewModels.Shops
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ShoppingMall.ViewModels.Shops
 {
+    /// <summary>
+    /// Город VM
+    /// </summary>
     public class CityVM
     {
-        /// <summary>
-        /// Идентификатор города
-        /// </summary>
-        public int Id { get; set; }
-
+        [Required(AllowEmptyStrings = false, ErrorMessage = "- Вы не выбрали город!")]
         /// <summary>
         /// Наименование города
         /// </summary>

@@ -1,12 +1,10 @@
 ﻿namespace ShoppingMall.ViewModels.Shops
 {
+    /// <summary>
+    /// Телефон магазина VM
+    /// </summary>
     public class PhoneStoreVM
     {
-        /// <summary>
-        /// Идентификатор телефона
-        /// </summary>
-        public int PhoneStoreId { get; set; }
-
         /// <summary>
         /// Номер телефона
         /// </summary>

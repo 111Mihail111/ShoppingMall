@@ -296,21 +296,18 @@ function RemoveButtonElement(iElement) {
 
 //Создание скрытых полей и вставка в разметку
 function CreateHiddenField(liElement) {
-
-    let liHeader = GetHeaderDropDownList(liElement);
-
-    let inputHeader = document.createElement("input");
-    inputHeader.id = "TypeCategoryStory";
-    inputHeader.value = liHeader.value;
-    inputHeader.name = GetIndexByNameInputHeader(inputHeader);
-
+    
     let inputElement = document.createElement("input");
     inputElement.id = "CategoryStore";
     inputElement.value = liElement.value;
     inputElement.textContent = liElement.textContent;
-    inputElement.name = "TypeCategoryStores[" + inputHeader.name.match(/[0-9]/)[0] + "].CategoryStores[0].CategoryStoreId";
+    inputElement.name = "CategoryStores[" + CountInput() + "].CategoryStoreId";
 
-    document.getElementById("InputHiddenFields").append(inputHeader, inputElement);
+    document.getElementById("InputHiddenFields").append(inputElement);
+}
+
+function CountInput() {
+    return document.getElementById("InputHiddenFields").childElementCount;
 }
 
 //Получение индекса для инпут хедера
@@ -345,22 +342,15 @@ function GetHeaderDropDownList(liElement) {
 
 //Удаление скрытых полей
 function RemoveHiddenField(button) {
-    let text = button.innerText;
     let hiddenFields = document.getElementById("InputHiddenFields").getElementsByTagName("input");
-    let index = 0;
-    for (var i = 0; i < hiddenFields.length; i++) {
-        if (hiddenFields[i].innerText === text) {
-            hiddenFields[i].remove();
-            hiddenFields[i - 1].remove();
+    for (var i = 0; i < CountInput(); i++) {
+        debugger;
+        let element = hiddenFields[i];
+        if (element.value === button.value) {
+            element.remove();
             i = -1;
-            index = 0;
-            continue;
         }
-        if (hiddenFields[i].id === "TypeCategoryStory") {
-            hiddenFields[i].name = hiddenFields[i].name.replace(/[0-9]/, index);
-            hiddenFields[i + 1].name = hiddenFields[i + 1].name.replace(/[0-9]/, index);
-            index++;
-        }
+        element.name = element.name.replace(/[0-9]/, i)
     }
 }
 

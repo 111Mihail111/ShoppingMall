@@ -3,18 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShoppingMall.ViewModels.Shops
 {
+    /// <summary>
+    /// Региональные данные магазина VM
+    /// </summary>
     public class RegionalStoreDataVM
     {
         /// <summary>
-        /// Идентификатор региональных данных магазина
-        /// </summary>
-        public int RegionalDateStoreId { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "- Вы не выбрали город!")]
-        /// <summary>
         /// Город
         /// </summary>
-        public string City { get; set; }
+        public CityVM City { get; set; }
 
         /// <summary>
         /// Региональный поддомен

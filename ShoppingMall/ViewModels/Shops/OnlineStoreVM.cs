@@ -34,6 +34,11 @@ namespace ShoppingMall.ViewModels.Shops
         public HttpPostedFileBase LogoStore { get; set; }
 
         /// <summary>
+        /// Байты логотипа
+        /// </summary>
+        public byte[] LogoStoreByte { get; set; }
+
+        /// <summary>
         /// Описание магазина
         /// </summary>
         public string Description { get; set; }
@@ -41,7 +46,7 @@ namespace ShoppingMall.ViewModels.Shops
         /// <summary>
         /// Лист категорий магазина
         /// </summary>
-        public List<TypeCategoryStoreVM> TypeCategoryStores { get; set; }
+        public List<CategoryStoreVM> CategoryStores { get; set; }
 
         /// <summary>
         /// Лист телефонов
@@ -56,6 +61,6 @@ namespace ShoppingMall.ViewModels.Shops
         /// <summary>
         /// Лист региональных данных магазина
         /// </summary>
-        public List<RegionalStoreData> RegionalStoreData { get; set; }
+        public List<RegionalStoreDataVM> RegionalStoreData { get; set; }
     }
 }
